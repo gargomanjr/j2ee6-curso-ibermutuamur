@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="JEEE_CursoEJB" transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>es.ibermutuamur.curso.modelo.Actor</class>
+		<class>es.ibermutuamur.curso.modelo.Address</class>
+		<class>es.ibermutuamur.curso.modelo.Category</class>
+		<class>es.ibermutuamur.curso.modelo.City</class>
+		<class>es.ibermutuamur.curso.modelo.Country</class>
+		<class>es.ibermutuamur.curso.modelo.Customer</class>
+		<class>es.ibermutuamur.curso.modelo.Film</class>
+		<class>es.ibermutuamur.curso.modelo.FilmActor</class>
+		<class>es.ibermutuamur.curso.modelo.FilmActorPK</class>
+		<class>es.ibermutuamur.curso.modelo.FilmCategory</class>
+		<class>es.ibermutuamur.curso.modelo.FilmCategoryPK</class>
+		<class>es.ibermutuamur.curso.modelo.FilmText</class>
+		<class>es.ibermutuamur.curso.modelo.Inventory</class>
+		<class>es.ibermutuamur.curso.modelo.Language</class>
+		<class>es.ibermutuamur.curso.modelo.Payment</class>
+		<class>es.ibermutuamur.curso.modelo.Rental</class>
+		<class>es.ibermutuamur.curso.modelo.Staff</class>
+		<class>es.ibermutuamur.curso.modelo.Store</class>
+		<properties>
+			<property name="eclipselink.target-server" value="WebLogic"/>
+		</properties>
+	</persistence-unit>
+</persistence>
