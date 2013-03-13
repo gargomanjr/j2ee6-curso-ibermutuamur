@@ -1,0 +1,208 @@
+
+
+#navHC {
+    list-style: none;
+    width: 90%;
+    text-decoration:none;
+    font: 15px/18px 'AftasansRegular', Arial, sans-serif;
+    line-height:20px;
+    color:black;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+#navHC a{
+    cursor: pointer;
+    /*border: 1px solid #919191;*/
+}
+
+#listHC ul {
+    list-style: none;
+    /* La lista es invisible por defecto */
+    display: none;
+}
+
+
+
+#navHC {
+}
+
+#navHC a.itemAsis{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+    margin-left: 5px;
+    background-image: url("../images/mnu/icoCirAzu.gif");
+    text-decoration: none;
+    color: black;
+}
+
+#navHC a.itemAnt0{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+    margin-left: 5px;
+    background-image: url("../images/mnu/icoCirGri.gif");
+}
+
+#navHC a.itemAnt1{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+    margin-left: 5px;
+    background-image: url("../images/mnu/icoOkRoj.gif");
+}
+
+#navHC a.folderDocs{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    margin-left: 0!important;
+    background-image: url("../images/mnu/treeGri0.gif");
+    text-decoration: none;
+    color: black;
+}
+
+#navHC a.folderHC{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    text-decoration: none;
+    background-image: url("../images/mnu/treeAzu1.gif");
+}
+
+#navHC a.folderAntecedentes{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-image: url("../images/mnu/treeRoj1.gif");
+}
+
+#navHC a.tipoEp_6{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-image: url("../images/mnu/treeAzu1.gif");
+}
+
+#navHC a.tipoEp_2{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-image: url("../images/mnu/treeNeg1.gif");
+}
+
+
+#navHC a.tipoEp_1{
+    width: auto;    
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-image: url("../images/ico/arrow.png");
+    font-weight: 800;
+}
+
+
+#navHC a.estadoEp_0 {
+    text-decoration: none;
+    color: #000000;
+}
+#navHC a.estadoEp_4 {
+    text-decoration: line-through;
+    color: red;
+}
+#navHC a.estadoEp_5 {
+    text-decoration: line-through;
+    color: #FF00FF;
+}
+#navHC label {
+    text-decoration: none;
+    color: #000000;
+}
+
+#capa0{
+    background-image: url("../images/mnu/treeAma1.gif");
+}
+#capa1{
+    background-image: url("../images/mnu/treeAzu1.gif");
+}
+#capa2{
+    background-image: url("../images/mnu/treeNar1.gif");
+}
+#capa3{
+    background-image: url("../images/mnu/treeNeg1.gif");
+}
+#capa4{
+    background-image: url("../images/mnu/treeMor1.gif");
+}
+#capa5{
+    background-image: url("../images/mnu/treeVer1.gif");
+}
+#capa6{
+    background-image: url("../images/mnu/treeCaq1.gif");
+}
+#capa7{
+    background-image: url("../images/mnu/treeGri1.gif");
+}
+#capa8{
+    background-image: url("../images/mnu/treeAzo1.gif");
+}
+
+
+#listHC li {
+    margin-left: 10px;
+}
+#listHC li ul {
+    margin-left: 10px;
+}
+#listHC li ul a {
+    margin-left: 10px;
+}
+
+
+.treeAma0{list-style-image: url("../images/mnu/treeAma0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:25px; color:black}
+.treeAma1{list-style-image: url("../images/mnu/treeAma1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:25px; color:black}
+.treeAzu0{list-style-image: url("../images/mnu/treeAzu0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeAzu1{list-style-image: url("../images/mnu/treeAzu1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeNar0{list-style-image: url("../images/mnu/treeNar0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeNar1{list-style-image: url("../images/mnu/treeNar1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeNeg0{list-style-image: url("../images/mnu/treeNeg0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeNeg1{list-style-image: url("../images/mnu/treeNeg1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeMor0{list-style-image: url("../images/mnu/treeMor0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeMor1{list-style-image: url("../images/mnu/treeMor1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeRoj0{list-style-image: url("../images/mnu/treeRoj0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeRoj1{list-style-image: url("../images/mnu/treeRoj1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeVer0{list-style-image: url("../images/mnu/treeVer0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeVer1{list-style-image: url("../images/mnu/treeVer1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeCaq0{list-style-image: url("../images/mnu/treeCaq0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeCaq1{list-style-image: url("../images/mnu/treeCaq1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeGri0{list-style-image: url("../images/mnu/treeGri0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeGri1{list-style-image: url("../images/mnu/treeGri1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeNeg0{list-style-image: url("../images/mnu/treeNeg0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeNeg1{list-style-image: url("../images/mnu/treeNeg1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeAzo0{list-style-image: url("../images/mnu/treeAzo0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeAzo1{list-style-image: url("../images/mnu/treeAzo1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+
+
+.itemAma{list-style-image:url("../images/mnu/icoCirAma.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:13px; color:black}
+.itemAzu{list-style-image:url("../images/mnu/icoCirAzu.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:13px; color:black}
+.itemGri{list-style-image:url("../images/mnu/icoCirGri.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:13px; color:black}
+.itemRoj{list-style-image:url("../images/mnu/icoCirRoj.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:13px; color:black}
+.itemVer{list-style-image:url("../images/mnu/icoCirVer.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:13px; color:black}
+.itemRojOk{list-style-image:url("../images/mnu/icoOkRoj.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:13px; color:black}
+.itemPend{list-style-image:url("../images/ico/icoCirPend.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:13px; color:#663300}
+
+
+.treeDocExt0{list-style-image: url("../images/mnu/treeMor1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeDocInt0{list-style-image: url("../images/mnu/treeAzu1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeDocExtInt0{list-style-image: url("../images/mnu/treeVer1.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+.treeDocGri0{list-style-image: url("../images/mnu/treeGri0.gif"); text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:black}
+

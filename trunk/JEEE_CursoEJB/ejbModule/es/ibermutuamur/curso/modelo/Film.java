@@ -43,10 +43,10 @@ public class Film implements Serializable {
 
 	@Column(name="replacement_cost")
 	private BigDecimal replacementCost;
-
+	/*
 	@Column(name="special_features")
 	private Object specialFeatures;
-
+	 */
 	private String title;
 
 	//bi-directional many-to-one association to Language
@@ -145,7 +145,8 @@ public class Film implements Serializable {
 	public void setReplacementCost(BigDecimal replacementCost) {
 		this.replacementCost = replacementCost;
 	}
-
+	
+	/*
 	public Object getSpecialFeatures() {
 		return this.specialFeatures;
 	}
@@ -153,7 +154,8 @@ public class Film implements Serializable {
 	public void setSpecialFeatures(Object specialFeatures) {
 		this.specialFeatures = specialFeatures;
 	}
-
+	 */
+	
 	public String getTitle() {
 		return this.title;
 	}

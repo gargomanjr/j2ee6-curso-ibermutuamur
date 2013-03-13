@@ -1,0 +1,157 @@
+
+@media screen and (max-width:210px) {  
+  
+	#navHC {
+		list-style: none;
+		width: 90%;
+		text-decoration:none;
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+		line-height:22px;
+		color:black;
+		margin-top: 10px;
+		font-weight: 500;
+	}
+
+	#navHC a{
+		cursor: pointer;		
+		/*border: 1px solid #919191;*/
+	}
+
+	#listHC ul {
+		list-style: none;
+		/* La lista es invisible por defecto */
+		display: none;
+	}
+
+	#navHC li {
+		font-weight: 800;
+	}
+	
+	#listHC li a{
+		font-weight: 500;
+	}
+	
+	#navHC {
+	}
+
+	#navHC a.itemAsis{
+		width: auto;    
+		background-position: left;
+		background-repeat: no-repeat;
+		padding-left: 10px;
+		margin-left: 5px;
+		background-image: url("../images/mnu/icoCirAzu.gif");
+	}
+
+	#navHC a.itemAnt0{
+		width: auto;    
+		background-position: left;
+		background-repeat: no-repeat;
+		padding-left: 10px;
+		margin-left: 5px;
+		background-image: url("../images/mnu/icoCirGri.gif");
+	}
+
+	#navHC a.itemAnt1{
+		width: auto;    
+		background-position: left;
+		background-repeat: no-repeat;
+		padding-left: 10px;
+		margin-left: 5px;
+		background-image: url("../images/mnu/icoOkRoj.gif");
+	}
+
+	#navHC a.folderDocs{
+		width: auto;    
+		position: relative;
+		float: right;
+		background-image: none;
+	}
+
+	#navHC a.folderHC{		
+		display:block;
+		width: 23px;  
+		height: 19px;
+		position: absolute;
+		right: 10px;
+		background-position: right;
+		background-repeat: no-repeat;
+		background-image: url("../images/ico/icoDown.gif");
+	}
+
+	#navHC a.folderAntecedentes{
+		display:block;
+		width: 23px;  
+		height: 19px;
+		position: absolute;
+		right: 15px;
+		background-position: right;
+		background-repeat: no-repeat;
+		background-image: url("../images/mnu/tridown.gif");
+	}
+
+	#navHC a.tipoEp_6{
+		display:block;
+		width: 23px;  
+		height: 19px;
+		position: absolute;
+		right: 15px;
+		background-position: right;
+		background-repeat: no-repeat;
+		background-image: url("../images/mnu/tridown.gif");
+	}
+
+	#navHC a.tipoEp_2{
+		display:block;
+		width: 23px;  
+		height: 19px;
+		position: absolute;
+		right: 15px;
+		background-position: right;
+		background-repeat: no-repeat;
+		background-image: url("../images/mnu/tridown.gif");
+	}
+
+
+	#navHC a.tipoEp_1{
+		display:block;
+		width: 23px;  
+		height: 19px;
+		position: absolute;
+		right: 15px;
+		background-position: right;
+		background-repeat: no-repeat;
+		background-image: url("../images/mnu/tridown.gif");
+	}
+
+
+	#navHC a.estadoEp_0 {
+		text-decoration: none;
+		color: #000000;
+	}
+	#navHC a.estadoEp_4 {
+		text-decoration: line-through;
+		color: red;
+	}
+	#navHC a.estadoEp_5 {
+		text-decoration: line-through;
+		color: #FF00FF;
+	}
+	#navHC label {
+		text-decoration: none;
+		color: #000000;
+	}
+
+
+	#listHC li {
+		margin-left: 5px!important;
+	}
+	#listHC li ul {
+		margin-left: 0px!important;
+	}
+	#listHC li ul a {
+		margin-left: 10px;
+	}
+
+}
