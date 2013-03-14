@@ -15,6 +15,7 @@ import es.ibermutuamur.curso.modelo.Country;
 /**
  * Servlet implementation class InsertarEntity
  */
+@SuppressWarnings("serial")
 @WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
 public class InsertarEntity extends HttpServlet {
 	
@@ -36,13 +37,11 @@ public class InsertarEntity extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int i = 0;
 		i++;
+		insertarPais();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int i = 0;
+	
+	private void insertarPais(){
         em.getTransaction().begin();
         Country pais = new Country();
         pais.setCountry("Españá");
@@ -53,6 +52,14 @@ public class InsertarEntity extends HttpServlet {
         Country pais1 = new Country();
         pais1.setCountry("Francia");
         em.flush();
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int i = 0;
+		i++;
+		insertarPais();
 	}
 
 }
