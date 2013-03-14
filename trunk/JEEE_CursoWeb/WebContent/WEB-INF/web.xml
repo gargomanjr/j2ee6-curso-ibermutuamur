@@ -4,4 +4,8 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <persistence-context-ref>
+	  <persistence-context-ref-name>JEEE_CursoWeb/EntityManager</persistence-context-ref-name>
+	  <persistence-unit-name>JEEE_CursoWeb</persistence-unit-name>
+  </persistence-context-ref>
 </web-app>
