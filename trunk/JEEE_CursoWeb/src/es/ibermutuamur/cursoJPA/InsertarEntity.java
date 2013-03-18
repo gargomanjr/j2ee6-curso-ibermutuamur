@@ -4,7 +4,11 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +27,10 @@ import es.ibermutuamur.curso.modelo.Country;
 @WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
 public class InsertarEntity extends HttpServlet {
 	
-    @PersistenceContext(unitName="JEEE_CursoWeb")
-    private EntityManager em;
+    @PersistenceContext(unitName="example/em")
+    EntityManager em;
+    @PersistenceUnit(unitName="example/emf")
+    EntityManagerFactory factory;
    /* @Resource
     UserTransaction tx;*/
        
@@ -33,7 +39,7 @@ public class InsertarEntity extends HttpServlet {
      */
     public InsertarEntity() {
         super();
-        insertarPais();
+        //insertarPais();
         
     }
 
@@ -43,24 +49,34 @@ public class InsertarEntity extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int i = 0;
 		i++;
-		//insertarPais();
+		insertarPais();
 	}
 
 	
 	private void insertarPais(){
         try {
-			em.getTransaction().begin();
+        	if(factory== null && em == null){
+				factory = Persistence.createEntityManagerFactory("JEEE_CursoEJB");
+				em = factory.createEntityManager();
+        	}
+        	if(factory== null && em == null){
+				factory = Persistence.createEntityManagerFactory("JEEE_CursoWeb");
+				em = factory.createEntityManager();
+        	}
+        	em = factory.createEntityManager();
+			//+
+        	//EntityTransaction transacion = em.getTransaction();
 	        Country pais = new Country();
 	        pais.setCountry("Españá");
-	        pais.setCountryId(1);
-	        em.flush();
-	        em.getTransaction().commit();
+	        //pais.setCountryId(1);
+	        em.persist(pais);
+	        //transacion.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
         Country pais1 = new Country();
         pais1.setCountry("Francia");
-        em.flush();
+        em.persist(pais1);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

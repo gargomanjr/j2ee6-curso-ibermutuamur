@@ -21,13 +21,13 @@ public class FilmCategory implements Serializable {
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Category
-	@ManyToOne
-	@JoinColumn(name="category_id")
+	@ManyToOne(optional=false)
+	@PrimaryKeyJoinColumn(name="category_id",referencedColumnName="categoryId")
 	private Category category;
 
 	//bi-directional many-to-one association to Film
-	@ManyToOne
-	@JoinColumn(name="film_id")
+	@ManyToOne(optional=false)
+	@PrimaryKeyJoinColumn(name="film_id",referencedColumnName="filmId")
 	private Film film;
 
 	public FilmCategory() {
