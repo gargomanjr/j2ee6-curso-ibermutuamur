@@ -2,6 +2,7 @@ package es.ibermutuamur.curso.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 
@@ -22,12 +23,12 @@ public class FilmActor implements Serializable {
 
 	//bi-directional many-to-one association to Actor
 	@ManyToOne
-	@JoinColumn(name="actor_id")
+	@PrimaryKeyJoinColumn(name="actor_id",referencedColumnName="actorId")
 	private Actor actor;
 
 	//bi-directional many-to-one association to Film
 	@ManyToOne
-	@JoinColumn(name="film_id")
+	@PrimaryKeyJoinColumn(name="film_id",referencedColumnName="filmId")
 	private Film film;
 
 	public FilmActor() {
