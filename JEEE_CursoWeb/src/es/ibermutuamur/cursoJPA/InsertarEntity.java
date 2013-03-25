@@ -27,11 +27,10 @@ import es.ibermutuamur.curso.modelo.Country;
  * Servlet implementation class InsertarEntity
  */
 @SuppressWarnings("serial")
-//@TransactionManagement(TransactionManagementType.BEAN)
 @WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
 public class InsertarEntity extends HttpServlet {
 	
-    @PersistenceContext(unitName="JEEE_CursoWeb")
+    //@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
     @PersistenceUnit(unitName="JEEE_CursoWeb")
     EntityManagerFactory factory;
@@ -53,6 +52,7 @@ public class InsertarEntity extends HttpServlet {
 	
 	private void insertarPais(){
         try {      	
+        	em = factory.createEntityManager();
         	EntityTransaction transacion = em.getTransaction();
         	transacion.begin();
         	
