@@ -28,7 +28,7 @@ import es.ibermutuamur.curso.modelo.Country;
  */
 @SuppressWarnings("serial")
 @WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
-public class InsertarEntity extends HttpServlet {
+public class InsertarEntity_ResourceLocal extends HttpServlet {
 	
     //@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
@@ -38,7 +38,7 @@ public class InsertarEntity extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertarEntity() {
+    public InsertarEntity_ResourceLocal() {
         super();      
     }
 
