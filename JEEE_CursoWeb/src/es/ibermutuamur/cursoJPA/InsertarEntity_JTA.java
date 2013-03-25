@@ -25,12 +25,12 @@ import es.ibermutuamur.curso.modelo.Country;
  * Servlet implementation class InsertarEntity
  */
 @SuppressWarnings("serial")
-@WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
-public class InsertarEntity extends HttpServlet {
+@WebServlet(name="/InsertarEntityJTA", urlPatterns="/InsertarEntityJTA")
+public class InsertarEntity_JTA extends HttpServlet {
 	
-    @PersistenceContext(unitName="JEEE_CursoWeb")
+    @PersistenceContext(unitName="JEEE_CursoEJB")
     EntityManager em;
-    @PersistenceUnit(unitName="JEEE_CursoWeb")
+    @PersistenceUnit(unitName="JEEE_CursoEJB")
     EntityManagerFactory factory;
     @Resource
     UserTransaction utx; 
@@ -38,28 +38,39 @@ public class InsertarEntity extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertarEntity() {
-        super();      
+    public InsertarEntity_JTA() {
+        super();
+        //insertarPais();
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int i = 0;
+		i++;
 		insertarPais();
 	}
 
 	
 	private void insertarPais(){
-        try {      	
-        	EntityTransaction transacion = em.getTransaction();
-        	transacion.begin();
+        try {
+        	if(factory== null && em == null){
+				factory = Persistence.createEntityManagerFactory("JEEE_CursoEJB");
+				em = factory.createEntityManager();
+        	}
+        	if(utx == null){
+        		utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        	}
         	
+        	utx.begin();
+
 	        Country pais = new Country();
-	        pais.setCountry("Alemania");
+	        pais.setCountry("Italia");
 	        em.persist(pais);
-	        
-	        transacion.commit();
+
+	        utx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
