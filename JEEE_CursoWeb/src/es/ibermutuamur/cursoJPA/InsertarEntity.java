@@ -3,6 +3,8 @@ package es.ibermutuamur.cursoJPA;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,6 +27,7 @@ import es.ibermutuamur.curso.modelo.Country;
  * Servlet implementation class InsertarEntity
  */
 @SuppressWarnings("serial")
+//@TransactionManagement(TransactionManagementType.BEAN)
 @WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
 public class InsertarEntity extends HttpServlet {
 	
@@ -32,8 +35,6 @@ public class InsertarEntity extends HttpServlet {
     EntityManager em;
     @PersistenceUnit(unitName="JEEE_CursoWeb")
     EntityManagerFactory factory;
-    @Resource
-    UserTransaction utx; 
        
     /**
      * @see HttpServlet#HttpServlet()
