@@ -3,6 +3,7 @@ package es.ibermutuamur.cursoJPA;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -27,12 +28,11 @@ import es.ibermutuamur.curso.modelo.Country;
 @WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
 public class InsertarEntity extends HttpServlet {
 	
-    @PersistenceContext(unitName="example/em")
+    @PersistenceContext(unitName="JEEE_CursoEJB")
     EntityManager em;
-    @PersistenceUnit(unitName="example/emf")
+    @PersistenceUnit(unitName="JEEE_CursoEJB")
     EntityManagerFactory factory;
-   /* @Resource
-    UserTransaction tx;*/
+    @Resource (name="UserTransaction")          private   UserTransaction utx; 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -64,13 +64,18 @@ public class InsertarEntity extends HttpServlet {
 				em = factory.createEntityManager();
         	}
         	em = factory.createEntityManager();
+        	if(utx == null){
+        		UserTransaction utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        	}
+        	utx.begin();
 			//+
         	//EntityTransaction transacion = em.getTransaction();
 	        Country pais = new Country();
 	        pais.setCountry("Españá");
 	        //pais.setCountryId(1);
+	        //em.flush();
 	        em.persist(pais);
-	        //transacion.commit();
+	        utx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
