@@ -2,6 +2,7 @@ package es.ibermutuamur.curso.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -14,8 +15,9 @@ import java.util.List;
 public class Country implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableGenerator(name = "SEQ_COUNTRY", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 110)
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.TABLE,generator="SEQ_COUNTRY")
 	@Column(name="country_id")
 	private int countryId;
 
