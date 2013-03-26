@@ -23,7 +23,6 @@ public class DescripcionCiudad implements java.io.Serializable {
 	// Fields
 	@Id
 	private String ciudad;
-	@Column
 	private String pais;
 	
 	// Constructors
