@@ -8,6 +8,7 @@
 		<class>es.ibermutuamur.curso.modelo.City</class>
 		<class>es.ibermutuamur.curso.modelo.Country</class>
 		<class>es.ibermutuamur.curso.modelo.Customer</class>
+		<class>es.ibermutuamur.curso.modelo.DescripcionCiudad</class>
 		<class>es.ibermutuamur.curso.modelo.Film</class>
 		<class>es.ibermutuamur.curso.modelo.FilmActor</class>
 		<class>es.ibermutuamur.curso.modelo.FilmActorPK</class>
