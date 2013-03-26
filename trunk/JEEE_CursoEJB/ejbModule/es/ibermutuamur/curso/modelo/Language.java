@@ -2,7 +2,8 @@ package es.ibermutuamur.curso.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -14,13 +15,15 @@ import java.util.List;
 public class Language implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableGenerator(name = "SEQ_LANGUAJE", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 7)
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.TABLE,generator="SEQ_LANGUAJE")
 	@Column(name="language_id")
-	private byte languageId;
+	private int languageId;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	private String name;
 
@@ -35,19 +38,19 @@ public class Language implements Serializable {
 	public Language() {
 	}
 
-	public byte getLanguageId() {
+	public int getLanguageId() {
 		return this.languageId;
 	}
 
-	public void setLanguageId(byte languageId) {
+	public void setLanguageId(int languageId) {
 		this.languageId = languageId;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
