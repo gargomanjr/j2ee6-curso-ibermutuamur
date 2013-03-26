@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,12 +60,37 @@ public class Funciones_Procedimientos extends HttpServlet {
         	response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
         	
+            DescripcionCiudad result=null;
+            try{
+            	Query query2 = em.createNamedQuery("descripcionCiudad");
+            	query2.setParameter("idCiudad", 111);
+            	result = (DescripcionCiudad) query2.getSingleResult();
+            	
+            }
+            catch(Exception e){
+            	System.out.println(e.getMessage());
+            	e.printStackTrace();
+            }
+            try{
+            	Query query2 = em.createNamedQuery("descripcionCiudad2");
+            	query2.setParameter("idCiudad", 111);
+            	result = (DescripcionCiudad) query2.getSingleResult();
+            	
+            }
+            catch(Exception e){
+            	System.out.println(e.getMessage());
+            	e.printStackTrace();
+            }
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Resultado función</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Número de ciudades: " + numero_ciudades + "</h1>");
+            if(result!=null){
+	            out.println("<h2>Descripción ciudad: " + result.getCiudad() + "</h2>");
+	            out.println("<h2>Descripción pais: " + result.getPais() + "</h2>");
+            }
             out.println("</body>");
             out.println("</html>");
         	

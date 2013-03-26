@@ -3,6 +3,9 @@ package es.ibermutuamur.curso.modelo;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.eclipse.persistence.annotations.Direction;
+import org.eclipse.persistence.annotations.NamedStoredProcedureQuery;
+import org.eclipse.persistence.annotations.StoredProcedureParameter;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -11,6 +14,13 @@ import java.util.List;
  * The persistent class for the city database table.
  * 
  */
+@NamedStoredProcedureQuery(name="descripcionCiudad2", procedureName="descripcionCiudad",multipleResultSets=false, resultClass=DescripcionCiudad.class, 
+parameters={
+	      @StoredProcedureParameter(direction=Direction.IN,  name="idCiudad", queryParameter="idCiudad", type=Integer.class),
+	      @StoredProcedureParameter(direction=Direction.OUT, name="ciudad",   queryParameter="ciudad", type=String.class),
+	      @StoredProcedureParameter(direction=Direction.OUT, name="pais",     queryParameter="pais", type=String.class)
+	      }
+)
 @Entity
 public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
