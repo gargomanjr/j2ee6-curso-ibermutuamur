@@ -29,7 +29,7 @@ public class City implements Serializable {
 	private List<Address> addresses;
 
 	//bi-directional many-to-one association to Country
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="country_id")
 	private Country country;
 
