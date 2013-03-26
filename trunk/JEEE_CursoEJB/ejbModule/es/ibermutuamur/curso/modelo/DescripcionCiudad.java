@@ -1,5 +1,6 @@
 package es.ibermutuamur.curso.modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -16,12 +17,13 @@ parameters={
 	      @StoredProcedureParameter(direction=Direction.OUT, name="pais",     queryParameter="pais", type=String.class)
 	      }
 )
-//@Entity
+@Entity
 public class DescripcionCiudad implements java.io.Serializable {
 
 	// Fields
-	//@Id
+	@Id
 	private String ciudad;
+	@Column
 	private String pais;
 	
 	// Constructors
