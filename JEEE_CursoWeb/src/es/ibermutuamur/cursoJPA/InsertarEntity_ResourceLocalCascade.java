@@ -62,7 +62,7 @@ public class InsertarEntity_ResourceLocalCascade extends HttpServlet {
 	        
 	        City ciudad = new City();
 	        ciudad.setCountry(pais);
-	        ciudad.setCity("Guadalajara");
+	        ciudad.setCity("Hamburgo");
 	        em.persist(ciudad);
 	        
 	        
