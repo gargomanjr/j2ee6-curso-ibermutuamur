@@ -46,44 +46,41 @@ public class InsertarFilm_ResourceLocalOK extends HttpServlet {
 	
 	private void insertarPais(){
         try {      	
+        	Date d = new Date();
         	em = factory.createEntityManager();
-        	EntityTransaction transacion = em.getTransaction();
+        	EntityTransaction transacion = em.getTransaction();        	
+        	transacion.begin();  
         	
+        	Language idioma = new Language();
+        	idioma.setName("Español");   
+        	idioma.setLastUpdate(d);
+        	em.persist(idioma);
+	        transacion.commit(); 
+	        
+        	transacion.begin();  
         	Film pelicula = new Film();
         	pelicula.setDescription("Gladiator");
         	pelicula.setTitle("Gladiator");
         	pelicula.setRentalRate(new BigDecimal(3.5));
         	pelicula.setRentalDuration((byte)3);
-        	Date d = new Date();
         	pelicula.setLastUpdate(d);
         	pelicula.setReplacementCost(new BigDecimal(33.5));
-        	Language idioma = new Language();
-        	idioma.setName("Español");
         	pelicula.setLanguage1(idioma);
-        	FilmCategory genero = new FilmCategory();
-        	Category category = em.find(Category.class,(byte) 1);   
-        	genero.setCategory(category);
-        	
-        	//----------------------
-        	transacion.begin();
-        	em.persist(idioma);
-        	em.flush();
-        	em.refresh(idioma);
-	        transacion.commit(); 
-	        
-        	transacion.begin();  
         	pelicula.setLanguage1(idioma);
         	em.persist(pelicula);
-        	em.flush();
 	        transacion.commit();
         	
 	        transacion.begin();
-	        genero.setFilm(pelicula);
+	        FilmCategoryPK pkfilmc = new FilmCategoryPK();
+        	FilmCategory genero = new FilmCategory();
+        	Category category = em.find(Category.class, 1);   
+        	pkfilmc.setCategoryId(category.getCategoryId());
+        	pkfilmc.setFilmId(pelicula.getFilmId());
+        	genero.setId(pkfilmc);
         	em.persist(genero);
         	em.flush();
 	        transacion.commit();
         	//------------------------
-	        transacion.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

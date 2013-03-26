@@ -56,7 +56,8 @@ public class InsertarFilm_JTAOK extends HttpServlet {
         	factory = Persistence.createEntityManagerFactory("JEEE_CursoEJB");
 			em = factory.createEntityManager();
 			utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
-        	        	
+			utx.begin();
+			
         	Film pelicula = new Film();
         	pelicula.setDescription("Gladiator");
         	pelicula.setTitle("Gladiator");
@@ -73,7 +74,7 @@ public class InsertarFilm_JTAOK extends HttpServlet {
         	genero.setCategory(category);
         	
         	//----------------------
-        	utx.begin();
+        	
         	em.persist(idioma);
         	em.flush();
         	utx.commit(); 
