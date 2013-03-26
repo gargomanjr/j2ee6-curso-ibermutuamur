@@ -16,16 +16,19 @@ import java.util.List;
 public class Film implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableGenerator(name = "SEQ_FILM", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 1001)
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO,generator="SEQ_FILM")
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="film_id")
 	private int filmId;
 
 	@Lob
 	private String description;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	private int length;
 
@@ -90,11 +93,11 @@ public class Film implements Serializable {
 		this.description = description;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
