@@ -21,3 +21,14 @@ BEGIN
 RETURN 1;
 END
 ----------------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE `sakila`.`descripcionCiudad` (
+in idCiudad int, out ciudad char(50),out pais char(50))
+
+BEGIN
+	select city,country into ciudad, pais
+	from city c,country d
+	where c.city_id = idCiudad and 
+	c.country_id = d.country_id;
+END
