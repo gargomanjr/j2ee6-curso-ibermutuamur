@@ -60,6 +60,8 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
         	
         	Query queryMaxid = em.createQuery("select max(d.cityId) from City d");
         	int id = (Integer) queryMaxid.getSingleResult(); 
+        	Query queryMinid = em.createQuery("select min(d.cityId) from City d");
+        	int idmin = (Integer) queryMinid.getSingleResult(); 
         	
         	
         	Query query = em.createQuery("Select c from City c where c.cityId = :id");
@@ -67,9 +69,12 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
         	
         	City ciudad1 = (City) query.getSingleResult(); 
         	
-        	City ciudad2  = (City) query.getSingleResult(); 
-        	ciudad2.getCountry();
+        	Query query2 = em.createQuery("Select c from City c where c.cityId = :id");
+        	query2.setParameter("id", idmin);
         	
+        	City ciudad2  = (City) query2.getSingleResult(); 
+        	ciudad2.getCountry();
+
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Resultado función</title>");
@@ -84,7 +89,7 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
 	        else{
 	        	out.println("<h2>" + ciudad1.getCountry().getCountry()+"</h2>");
 	        }
-	        out.println("<h2>Ciudad 2 "+ciudad1.getCity()+" pais:</h2>");
+	        out.println("<h2>Ciudad 2 "+ciudad2.getCity()+" pais:</h2>");
 	        if(ciudad2.getCountry()==null){
 	        	out.println("<h2>Es nulo</h2>");
 	        }
