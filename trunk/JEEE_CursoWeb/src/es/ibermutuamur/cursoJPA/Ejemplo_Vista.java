@@ -3,6 +3,8 @@ package es.ibermutuamur.cursoJPA;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -21,8 +23,8 @@ import es.ibermutuamur.curso.modelo.*;
  * Servlet implementation class InsertarEntity
  */
 @SuppressWarnings("serial")
-@WebServlet(name="/Funciones", urlPatterns="/Funciones")
-public class Funciones_Procedimientos extends HttpServlet {
+@WebServlet(name="/Vista", urlPatterns="/Vista")
+public class Ejemplo_Vista extends HttpServlet {
 	
     EntityManager em;
     @PersistenceUnit(unitName="JEEE_CursoWeb")
@@ -31,7 +33,7 @@ public class Funciones_Procedimientos extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Funciones_Procedimientos() {
+    public Ejemplo_Vista() {
         super();      
     }
 
@@ -39,57 +41,35 @@ public class Funciones_Procedimientos extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		pruebaFuncion( request,  response);
+		pruebaVista( request,  response);
 	}
 
 	
-	private void pruebaFuncion(HttpServletRequest request, HttpServletResponse response){
+	private void pruebaVista(HttpServletRequest request, HttpServletResponse response){
         try {      	
-        	Date d = new Date();
         	em = factory.createEntityManager();
-        	//EntityTransaction transacion = em.getTransaction();  
         	
-            Query query = em.createNativeQuery("select numero_ciudades_pais (?pais) from dual");
-            query.setParameter("pais", 111);
-            int numero_ciudades = (Integer) query.getSingleResult();
+            Query query = em.createQuery("select f from FilmList f");
+            List<FilmList> listaPelis = query.getResultList();
         	       	
         	response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
         	
-            DescripcionCiudad result=null;
-            try{
-            	Query query2 = em.createNamedQuery("descripcionCiudad");
-            	query2.setParameter("idCiudad", 602);
-            	result = (DescripcionCiudad) query2.getSingleResult();
-            	
-            }
-            catch(Exception e){
-            	System.out.println(e.getMessage());
-            	e.printStackTrace();
-            }
-            try{
-            	Query query2 = em.createNamedQuery("descripcionCiudad2");
-            	query2.setParameter("idCiudad", 602);
-            	result = (DescripcionCiudad) query2.getSingleResult();
-            	
-            }
-            catch(Exception e){
-            	System.out.println(e.getMessage());
-            	e.printStackTrace();
-            }
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Resultado función</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Número de ciudades: " + numero_ciudades + "</h1>");
-            if(result!=null){
-	            out.println("<h2>Descripción ciudad: " + result.getCiudad() + "</h2>");
-	            out.println("<h2>Descripción pais: " + result.getPais() + "</h2>");
+            if(listaPelis!=null){
+            	for(int i =0;i<listaPelis.size()&&i<10;i++){
+            		out.println("<h2>Peli: "+i+" " + listaPelis.get(i).getTitle() + "</h2>");
+	            }
             }
             out.println("</body>");
             out.println("</html>");
         	
+        	
+        	//------------------------
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,7 +78,7 @@ public class Funciones_Procedimientos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		pruebaFuncion(request,response);
+		pruebaVista(request,response);
 	}
 
 }
