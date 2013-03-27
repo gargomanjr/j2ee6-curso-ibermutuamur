@@ -21,6 +21,7 @@
 		<class>es.ibermutuamur.curso.modelo.Rental</class>
 		<class>es.ibermutuamur.curso.modelo.Staff</class>
 		<class>es.ibermutuamur.curso.modelo.Store</class>
+		<class>es.ibermutuamur.curso.modelo.FilmList</class>
 		<properties>
 			<property name="eclipselink.target-server" value="WebLogic"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
