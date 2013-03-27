@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="JEEE_CursoClient" transaction-type="RESOURCE_LOCAL">
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>		
+		<class>modelo.Actor</class>
+		<class>modelo.Address</class>
+		<class>modelo.Category</class>
+		<class>modelo.City</class>
+		<class>modelo.Country</class>
+		<class>modelo.Customer</class>
+		<class>modelo.Film</class>
+		<class>modelo.FilmActor</class>
+		<class>modelo.FilmActorPK</class>
+		<class>modelo.FilmCategory</class>
+		<class>modelo.FilmCategoryPK</class>
+		<class>modelo.FilmText</class>
+		<class>modelo.Inventory</class>
+		<class>modelo.Language</class>
+		<class>modelo.Payment</class>
+		<class>modelo.Rental</class>
+		<class>modelo.Staff</class>
+		<class>modelo.Store</class>
+		<properties>
+			<property name="eclipselink.target-server" value="WebLogic"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sakila"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="root"/>
+			<property name="eclipselink.logging.level" value="FINEST"/>
+		</properties>
+	</persistence-unit>
+</persistence>
