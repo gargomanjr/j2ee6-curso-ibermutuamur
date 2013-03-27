@@ -21,7 +21,6 @@
 		<class>modelo.Staff</class>
 		<class>modelo.Store</class>
 		<properties>
-			<property name="eclipselink.target-server" value="WebLogic"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sakila"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
