@@ -27,7 +27,7 @@ public class Country implements Serializable {
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to City
-	@OneToMany(mappedBy="country",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="country")
 	private List<City> cities;
 
 	public Country() {
