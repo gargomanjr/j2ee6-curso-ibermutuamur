@@ -20,7 +20,7 @@ public class Main {
 	public static void main(String[] args) {
 		if(factory==null){
 			factory = Persistence.createEntityManagerFactory("JEEE_CursoClient");
-		}
+		} 
     	em = factory.createEntityManager();
     	// Usamos EntityTransaction al ser Resource_Local al tratarse de una app JSE
     	EntityTransaction transacion = em.getTransaction(); 
