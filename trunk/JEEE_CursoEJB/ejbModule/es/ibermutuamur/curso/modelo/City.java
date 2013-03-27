@@ -37,11 +37,11 @@ public class City implements Serializable {
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="city",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="city")
 	private List<Address> addresses;
 
 	//bi-directional many-to-one association to Country
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="country_id")
 	private Country country;
 

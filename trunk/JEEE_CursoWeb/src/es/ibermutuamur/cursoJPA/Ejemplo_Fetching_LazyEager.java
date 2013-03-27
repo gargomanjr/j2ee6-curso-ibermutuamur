@@ -57,7 +57,14 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
         	response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
         	em = factory.createEntityManager();
-        	Query query = em.createQuery("Select c from City c where c.cityId = select max(d.cityId) from City d");
+        	
+        	Query queryMaxid = em.createQuery("select max(d.cityId) from City d");
+        	int id = (Integer) queryMaxid.getSingleResult(); 
+        	
+        	
+        	Query query = em.createQuery("Select c from City c where c.cityId = :id");
+        	query.setParameter("id", id);
+        	
         	City ciudad1 = (City) query.getSingleResult(); 
         	
         	City ciudad2  = (City) query.getSingleResult(); 
@@ -70,14 +77,14 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Número de ciudades: "+ "</h1>");
 
-	        out.println("<h2>Ciudad 1 pais:</h2>");
+	        out.println("<h2>Ciudad 1 "+ciudad1.getCity()+" pais:</h2>");
 	        if(ciudad1.getCountry()==null){
 	        	out.println("<h2>Es nulo</h2>");
 	        }
 	        else{
 	        	out.println("<h2>" + ciudad1.getCountry().getCountry()+"</h2>");
 	        }
-	        out.println("<h2>Ciudad 2 pais:</h2>");
+	        out.println("<h2>Ciudad 2 "+ciudad1.getCity()+" pais:</h2>");
 	        if(ciudad2.getCountry()==null){
 	        	out.println("<h2>Es nulo</h2>");
 	        }
