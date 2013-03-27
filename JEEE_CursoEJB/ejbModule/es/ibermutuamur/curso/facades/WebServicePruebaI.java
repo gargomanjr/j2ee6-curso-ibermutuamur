@@ -14,8 +14,6 @@ public interface WebServicePruebaI {
 
 	@WebMethod
 	@WebResult(targetNamespace = "")	
-	@RequestWrapper(localName =  "WebServicePrueba",         targetNamespace = "http://curso.ibermutuamur.es/", className = "es.ibermutuamur.curso.facades.WebServicePrueba")
-	@ResponseWrapper(localName = "WebServicePruebaResponse", targetNamespace = "http://curso.ibermutuamur.es/", className = "es.ibermutuamur.curso.facades.WebServicePruebaPruebaResponse")
 	public void sendMensaje(
 			@WebParam(name = "id", targetNamespace = "") int id,
 			@WebParam(name = "descripcion", targetNamespace = "") String descripcion);
