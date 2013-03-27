@@ -58,7 +58,7 @@ public class Ejemplo_Mail extends HttpServlet {
         try {    
         	
         	String recipient = "ajosegmartinez@gmail.com";
-        	String mailer = "e-SanitarioplusTest@ibermutuamur.es";
+        	String mailer = "AntonioJoseGarcia@ibermutuamur.es";
             Message message = new MimeMessage(session);
             message.setFrom();
             message.setRecipients(Message.RecipientType.TO,
