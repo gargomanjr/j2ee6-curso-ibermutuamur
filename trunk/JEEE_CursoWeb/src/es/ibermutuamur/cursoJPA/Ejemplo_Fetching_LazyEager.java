@@ -3,15 +3,8 @@ package es.ibermutuamur.cursoJPA;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.annotation.Resource;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
-import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
@@ -19,12 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 
 import es.ibermutuamur.curso.modelo.City;
-import es.ibermutuamur.curso.modelo.Country;
 
 /**
  * Servlet implementation class InsertarEntity
@@ -74,39 +63,15 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
         	
         	City ciudad2  = (City) query2.getSingleResult(); 
         	ciudad2.getCountry();
-
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Resultado función</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Número de ciudades: "+ "</h1>");
-
-	        out.println("<h2>Ciudad 1 "+ciudad1.getCity()+" pais:</h2>");
-	        if(ciudad1.getCountry()==null){
-	        	out.println("<h2>Es nulo</h2>");
-	        }
-	        else{
-	        	out.println("<h2>" + ciudad1.getCountry().getCountry()+"</h2>");
-	        }
-	        out.println("<h2>Ciudad 2 "+ciudad2.getCity()+" pais:</h2>");
-	        if(ciudad2.getCountry()==null){
-	        	out.println("<h2>Es nulo</h2>");
-	        }
-	        else{
-	        	out.println("<h2>" + ciudad2.getCountry().getCountry()+"</h2>");
-	        }
-
-           // }
-            out.println("</body>");
-            out.println("</html>");
+        	
+        	request.setAttribute("ciudad1", ciudad1);
+        	request.setAttribute("ciudad2", ciudad2);
+        	em.close();
+        	request.getRequestDispatcher("/fetch.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        Country pais1 = new Country();
-        pais1.setCountry("Francia");
-        em.persist(pais1);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
