@@ -1,0 +1,8 @@
+
+
+JNDI -> mail/Prueba
+
+mail.debug=true 
+mail.from=e-SanitarioplusTest@ibermutuamur.es
+mail.transport.protocol=smtp 
+mail.smtp.host=localhost
