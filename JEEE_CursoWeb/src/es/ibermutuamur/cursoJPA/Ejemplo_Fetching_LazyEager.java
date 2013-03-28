@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +21,9 @@ import es.ibermutuamur.curso.modelo.City;
 @WebServlet(name="/Fetching", urlPatterns="/Fetching")
 public class Ejemplo_Fetching_LazyEager extends HttpServlet {
 	
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
-    @PersistenceUnit(unitName="JEEE_CursoWeb")
-    EntityManagerFactory factory;
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,8 +43,6 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
 	private void fetching(HttpServletRequest request, HttpServletResponse response){
         try {
         	response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-        	em = factory.createEntityManager();
         	
         	Query queryMaxid = em.createQuery("select max(d.cityId) from City d");
         	int id = (Integer) queryMaxid.getSingleResult(); 

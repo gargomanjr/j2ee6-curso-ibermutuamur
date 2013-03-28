@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
 
 import es.ibermutuamur.curso.modelo.*;
 
@@ -25,9 +28,10 @@ import es.ibermutuamur.curso.modelo.*;
 @WebServlet(name="/InsertarPeliculaOK", urlPatterns="/InsertarPeliculaOK")
 public class InsertarFilm_ResourceLocalOK extends HttpServlet {
 	
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
-    @PersistenceUnit(unitName="JEEE_CursoWeb")
-    EntityManagerFactory factory;
+    @Resource
+    UserTransaction utx; 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,18 +50,16 @@ public class InsertarFilm_ResourceLocalOK extends HttpServlet {
 	
 	private void insertarPais(){
         try {      	
-        	Date d = new Date();
-        	em = factory.createEntityManager();
-        	EntityTransaction transacion = em.getTransaction();        	
-        	transacion.begin();  
+        	Date d = new Date();    	
+        	utx.begin();  
         	
         	Language idioma = new Language();
         	idioma.setName("Español");   
         	idioma.setLastUpdate(d);
         	em.persist(idioma);
-	        transacion.commit(); 
+        	utx.commit(); 
 	        
-        	transacion.begin();  
+        	utx.begin();  
         	Film pelicula = new Film();
         	pelicula.setDescription("Gladiator");
         	pelicula.setTitle("Gladiator");
@@ -68,9 +70,9 @@ public class InsertarFilm_ResourceLocalOK extends HttpServlet {
         	pelicula.setLanguage1(idioma);
         	pelicula.setLanguage1(idioma);
         	em.persist(pelicula);
-	        transacion.commit();
+        	utx.commit();
         	
-	        transacion.begin();
+        	utx.begin();
 	        FilmCategoryPK pkfilmc = new FilmCategoryPK();
         	FilmCategory genero = new FilmCategory();
         	Category category = em.find(Category.class, 1);   
@@ -79,7 +81,7 @@ public class InsertarFilm_ResourceLocalOK extends HttpServlet {
         	genero.setId(pkfilmc);
         	em.persist(genero);
         	em.flush();
-	        transacion.commit();
+        	utx.commit();
         	//------------------------
 		} catch (Exception e) {
 			e.printStackTrace();

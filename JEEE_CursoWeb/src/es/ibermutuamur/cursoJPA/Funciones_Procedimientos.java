@@ -2,16 +2,17 @@ package es.ibermutuamur.cursoJPA;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
 
 import es.ibermutuamur.curso.modelo.*;
 
@@ -24,9 +25,10 @@ import es.ibermutuamur.curso.modelo.*;
 @WebServlet(name="/Funciones", urlPatterns="/Funciones")
 public class Funciones_Procedimientos extends HttpServlet {
 	
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
-    @PersistenceUnit(unitName="JEEE_CursoWeb")
-    EntityManagerFactory factory;
+    @Resource
+    UserTransaction utx; 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,12 +47,15 @@ public class Funciones_Procedimientos extends HttpServlet {
 	
 	private void pruebaFuncion(HttpServletRequest request, HttpServletResponse response){
         try {      	
-        	Date d = new Date();
-        	em = factory.createEntityManager();
-        	//EntityTransaction transacion = em.getTransaction();  
+        	
+        	Query queryMaxid = em.createQuery("select max(d.countryId) from Country d");
+        	int id = (Integer) queryMaxid.getSingleResult();
+        	
+        	Query queryMaxCity = em.createQuery("select max(d.cityId) from City d");
+        	int idcity = (Integer) queryMaxCity.getSingleResult(); 
         	
             Query query = em.createNativeQuery("select numero_ciudades_pais (?pais) from dual");
-            query.setParameter("pais", 111);
+            query.setParameter("pais", id);
             int numero_ciudades = (Integer) query.getSingleResult();
         	       	
         	response.setContentType("text/html;charset=UTF-8");
@@ -59,7 +64,7 @@ public class Funciones_Procedimientos extends HttpServlet {
             DescripcionCiudad result=null;
             try{
             	Query query2 = em.createNamedQuery("descripcionCiudad");
-            	query2.setParameter("idCiudad", 602);
+            	query2.setParameter("idCiudad", idcity);
             	result = (DescripcionCiudad) query2.getSingleResult();
             	
             }
