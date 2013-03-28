@@ -74,7 +74,7 @@ public class Funciones_Procedimientos extends HttpServlet {
             }
             try{
             	Query query2 = em.createNamedQuery("descripcionCiudad2");
-            	query2.setParameter("idCiudad", 602);
+            	query2.setParameter("idCiudad", idcity);
             	result = (DescripcionCiudad) query2.getSingleResult();
             	
             }
