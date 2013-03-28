@@ -2,6 +2,10 @@ package es.ibermutuamur.curso.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.ObjectTypeConverter;
+import org.eclipse.persistence.annotations.ConversionValue;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -45,10 +49,27 @@ public class Film implements Serializable {
 
 	@Column(name="replacement_cost")
 	private BigDecimal replacementCost;
-	/*
+	
 	@Column(name="special_features")
-	private Object specialFeatures;
-	 */
+	@Enumerated(EnumType.STRING)
+	@ObjectTypeConverter(name = "features", objectType = Features.class, dataType = String.class, conversionValues = {
+		@ConversionValue(objectValue = "Trailers", dataValue = "Trailers"),
+		@ConversionValue(objectValue = "Commentaries", dataValue = "Commentaries"),
+		@ConversionValue(objectValue = "Deleted", dataValue = "Deleted Scenes"),
+		@ConversionValue(objectValue = "Behind", dataValue = "Behind the Scenes") })
+	@Convert("features")
+	private Features specialFeatures;
+	 
+
+	public Features getSpecialFeatures() {
+		return specialFeatures;
+	}
+
+	public void setSpecialFeatures(Features specialFeatures) {
+		this.specialFeatures = specialFeatures;
+	}
+
+
 	private String title;
 
 	//bi-directional many-to-one association to Language
@@ -72,6 +93,10 @@ public class Film implements Serializable {
 	//bi-directional many-to-one association to Inventory
 	@OneToMany(mappedBy="film")
 	private List<Inventory> inventories;
+	
+	@Transient
+	private long diasDesdeUltAct;
+	
 
 	public Film() {
 	}
@@ -250,4 +275,19 @@ public class Film implements Serializable {
 
 		return inventories;
 	}
+
+	public long getDiasDesdeUltAct() {
+		Date hoy = new Date();
+		long diffTime = hoy.getTime() - this.getLastUpdate().getTime();
+		long diffDays = diffTime / (1000 * 60 * 60 * 24);		
+		return diffDays;
+	}
+	
+
+	public enum Features { 
+		Trailers,
+		Commentaries,
+		Deleted,
+		Behind
+	} 
 }
