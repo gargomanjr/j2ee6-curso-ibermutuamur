@@ -1,4 +1,4 @@
-package es.ibermutuamur.cursoJPA;
+package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
 
@@ -62,7 +62,6 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
         	
         	request.setAttribute("ciudad1", ciudad1);
         	request.setAttribute("ciudad2", ciudad2);
-        	em.close();
         	request.getRequestDispatcher("/fetch.jsp").forward(request, response);
 
 		} catch (Exception e) {

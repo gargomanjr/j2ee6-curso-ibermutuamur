@@ -31,6 +31,7 @@ public class Main {
         em.persist(pais);
         ///////////////////////////
         transacion.commit();
+        em.close();
 	}
 	
 

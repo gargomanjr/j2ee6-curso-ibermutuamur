@@ -1,4 +1,4 @@
-package es.ibermutuamur.cursoJPA;
+package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
 

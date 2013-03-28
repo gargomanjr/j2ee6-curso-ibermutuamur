@@ -1,4 +1,4 @@
-package es.ibermutuamur.cursoJPA;
+package es.ibermutuamur.cursoJPA.EJB;
 
 import java.io.IOException;
 import java.text.DateFormat;
