@@ -1,4 +1,4 @@
-package es.ibermutuamur.cursoJPA;
+package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ import es.ibermutuamur.curso.modelo.Language;
  */
 @SuppressWarnings("serial")
 @WebServlet(name="/InsertarPeliculaOK", urlPatterns="/InsertarPeliculaOK")
-public class InsertarFilm_ResourceLocalOK extends HttpServlet {
+public class InsertarPeliculaOK extends HttpServlet {
 	
 	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
@@ -37,7 +37,7 @@ public class InsertarFilm_ResourceLocalOK extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertarFilm_ResourceLocalOK() {
+    public InsertarPeliculaOK() {
         super();      
     }
 

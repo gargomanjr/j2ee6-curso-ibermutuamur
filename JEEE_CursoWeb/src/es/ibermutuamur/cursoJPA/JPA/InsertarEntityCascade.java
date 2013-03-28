@@ -1,30 +1,35 @@
-package es.ibermutuamur.cursoJPA;
+package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.modelo.Category;
-import es.ibermutuamur.curso.modelo.Film;
-import es.ibermutuamur.curso.modelo.FilmCategory;
-import es.ibermutuamur.curso.modelo.Language;
-
-
+import es.ibermutuamur.curso.modelo.City;
+import es.ibermutuamur.curso.modelo.Country;
 
 /**
  * Servlet implementation class InsertarEntity
  */
 @SuppressWarnings("serial")
-@WebServlet(name="/InsertarPelicula", urlPatterns="/InsertarPelicula")
-public class InsertarFilm_ResourceLocal extends HttpServlet {
+@WebServlet(name="/InsertarEntityCascade", urlPatterns="/InsertarEntityCascade")
+public class InsertarEntityCascade extends HttpServlet {
 	
 	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
@@ -34,7 +39,7 @@ public class InsertarFilm_ResourceLocal extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertarFilm_ResourceLocal() {
+    public InsertarEntityCascade() {
         super();      
     }
 
@@ -42,27 +47,23 @@ public class InsertarFilm_ResourceLocal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarFilm();
+		insertarPais();
 	}
 
 	
-	private void insertarFilm(){
+	private void insertarPais(){
         try {      	
         	utx.begin();
         	
-        	Film pelicula = new Film();
-        	pelicula.setDescription("Gladiator");
-        	pelicula.setTitle("Gladiator");
-        	Language idioma = new Language();
-        	idioma.setName("Español");
-        	pelicula.setLanguage1(idioma);
-        	FilmCategory genero = new FilmCategory();
-        	Category category = new Category();
-        	category.setCategoryId((byte)1);         // Evitamos tener que buscar en la tabla category
-        	genero.setCategory(category);
-        	//-----------------------
-        	em.persist(pelicula);
-        	//------------------------
+	        Country pais = new Country();
+	        pais.setCountry("Alemania");
+	        
+	        City ciudad = new City();
+	        ciudad.setCountry(pais);
+	        ciudad.setCity("Hamburgo");
+	        em.persist(ciudad);
+	        
+	        
 	        utx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +73,7 @@ public class InsertarFilm_ResourceLocal extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarFilm();
+		insertarPais();
 	}
 
 }
