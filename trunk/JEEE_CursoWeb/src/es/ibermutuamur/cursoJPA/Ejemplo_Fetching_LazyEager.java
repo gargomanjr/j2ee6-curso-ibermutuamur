@@ -1,7 +1,6 @@
 package es.ibermutuamur.cursoJPA;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

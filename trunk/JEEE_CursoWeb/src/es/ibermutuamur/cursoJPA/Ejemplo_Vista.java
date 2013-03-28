@@ -43,6 +43,7 @@ public class Ejemplo_Vista extends HttpServlet {
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	private void pruebaVista(HttpServletRequest request, HttpServletResponse response){
         try {      	        	
             Query query = em.createQuery("select f from FilmList f");

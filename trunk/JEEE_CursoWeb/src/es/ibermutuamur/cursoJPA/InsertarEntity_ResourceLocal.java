@@ -30,10 +30,10 @@ import es.ibermutuamur.curso.modelo.Country;
 @WebServlet(name="/InsertarEntity", urlPatterns="/InsertarEntity")
 public class InsertarEntity_ResourceLocal extends HttpServlet {
 	
-    //@PersistenceContext(unitName="JEEE_CursoWeb")
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
-    @PersistenceUnit(unitName="JEEE_CursoWeb")
-    EntityManagerFactory factory;
+    @Resource
+    UserTransaction utx; 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,15 +52,13 @@ public class InsertarEntity_ResourceLocal extends HttpServlet {
 	
 	private void insertarPais(){
         try {      	
-        	em = factory.createEntityManager();
-        	EntityTransaction transacion = em.getTransaction();
-        	transacion.begin();
+        	utx.begin();
         	
 	        Country pais = new Country();
 	        pais.setCountry("Alemania");
 	        em.persist(pais);
 	        
-	        transacion.commit();
+	        utx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,8 +70,6 @@ public class InsertarEntity_ResourceLocal extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int i = 0;
-		i++;
 		insertarPais();
 	}
 

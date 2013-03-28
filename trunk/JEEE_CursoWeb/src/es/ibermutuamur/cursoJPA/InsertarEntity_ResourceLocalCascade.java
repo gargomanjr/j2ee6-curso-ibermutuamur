@@ -31,7 +31,6 @@ import es.ibermutuamur.curso.modelo.Country;
 @WebServlet(name="/InsertarEntityCascade", urlPatterns="/InsertarEntityCascade")
 public class InsertarEntity_ResourceLocalCascade extends HttpServlet {
 	
-    //@PersistenceContext(unitName="JEEE_CursoWeb")
 	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
     @Resource
@@ -77,8 +76,6 @@ public class InsertarEntity_ResourceLocalCascade extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int i = 0;
-		i++;
 		insertarPais();
 	}
 
