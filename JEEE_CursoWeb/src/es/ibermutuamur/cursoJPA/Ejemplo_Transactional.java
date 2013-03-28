@@ -65,8 +65,6 @@ public class Ejemplo_Transactional extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int i = 0;
-		i++;
 		insertarPais();
 	}
 
