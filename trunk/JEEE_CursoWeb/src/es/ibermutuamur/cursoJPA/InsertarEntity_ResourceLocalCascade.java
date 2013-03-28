@@ -32,9 +32,10 @@ import es.ibermutuamur.curso.modelo.Country;
 public class InsertarEntity_ResourceLocalCascade extends HttpServlet {
 	
     //@PersistenceContext(unitName="JEEE_CursoWeb")
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
-    @PersistenceUnit(unitName="JEEE_CursoWeb")
-    EntityManagerFactory factory;
+    @Resource
+    UserTransaction utx; 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -53,9 +54,7 @@ public class InsertarEntity_ResourceLocalCascade extends HttpServlet {
 	
 	private void insertarPais(){
         try {      	
-        	em = factory.createEntityManager();
-        	EntityTransaction transacion = em.getTransaction();
-        	transacion.begin();
+        	utx.begin();
         	
 	        Country pais = new Country();
 	        pais.setCountry("Alemania");
@@ -66,7 +65,7 @@ public class InsertarEntity_ResourceLocalCascade extends HttpServlet {
 	        em.persist(ciudad);
 	        
 	        
-	        transacion.commit();
+	        utx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

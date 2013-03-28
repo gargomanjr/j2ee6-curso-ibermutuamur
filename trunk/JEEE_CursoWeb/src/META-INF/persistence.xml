@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="JEEE_CursoWeb" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="JEEE_CursoWeb" transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>cursoPrueba</jta-data-source>
 		<class>es.ibermutuamur.curso.modelo.Actor</class>
 		<class>es.ibermutuamur.curso.modelo.Address</class>
 		<class>es.ibermutuamur.curso.modelo.Category</class>
@@ -23,12 +24,8 @@
 		<class>es.ibermutuamur.curso.modelo.Store</class>
 		<class>es.ibermutuamur.curso.modelo.FilmList</class>
 		<properties>
-			<property name="eclipselink.target-server" value="WebLogic"/>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sakila"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="root"/>
-			<property name="eclipselink.logging.level" value="FINEST"/>
+		<property name="eclipselink.target-server" value="WebLogic"/>
+		<property name="eclipselink.logging.level" value="FINEST"/>
 		<!--<property name="eclipselink.ddl-generation" value="create-tables" />-->	
 		</properties>
 	</persistence-unit>

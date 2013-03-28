@@ -5,13 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Resource;
-import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.modelo.*;
+import es.ibermutuamur.curso.modelo.Category;
+import es.ibermutuamur.curso.modelo.Film;
+import es.ibermutuamur.curso.modelo.FilmCategory;
+import es.ibermutuamur.curso.modelo.Language;
 
 
 
@@ -30,9 +28,10 @@ import es.ibermutuamur.curso.modelo.*;
 @WebServlet(name="/InsertarPeliculaOKJTA", urlPatterns="/InsertarPeliculaOKJTA")
 public class InsertarFilm_JTAOK extends HttpServlet {
 	
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
+    @Resource
     UserTransaction utx; 
-    EntityManagerFactory factory;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,11 +50,9 @@ public class InsertarFilm_JTAOK extends HttpServlet {
 	
 	private void insertarPais(){
         try {      	
-        	
-
-        	factory = Persistence.createEntityManagerFactory("JEEE_CursoEJB");
-			em = factory.createEntityManager();
-			utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        	//factory = Persistence.createEntityManagerFactory("JEEE_CursoEJB");
+			//em = factory.createEntityManager();
+			//utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
 			utx.begin();
 			
         	Film pelicula = new Film();

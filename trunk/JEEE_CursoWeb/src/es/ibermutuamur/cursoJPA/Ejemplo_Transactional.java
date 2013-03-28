@@ -2,18 +2,17 @@ package es.ibermutuamur.cursoJPA;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import weblogic.jws.Transactional;
+import javax.transaction.UserTransaction;
 
 import es.ibermutuamur.curso.modelo.Country;
 
@@ -24,10 +23,10 @@ import es.ibermutuamur.curso.modelo.Country;
 @WebServlet(name="/Transactional", urlPatterns="/Transactional")
 public class Ejemplo_Transactional extends HttpServlet {
 	
-    //@PersistenceContext(unitName="JEEE_CursoWeb")
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
-    @PersistenceUnit(unitName="JEEE_CursoWeb")
-    EntityManagerFactory factory;
+    @Resource
+    UserTransaction utx; 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,7 +45,6 @@ public class Ejemplo_Transactional extends HttpServlet {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	private void insertarPais(){
         try {      	
-        	em = factory.createEntityManager();
         	//EntityTransaction transacion = em.getTransaction();
         	//transacion.begin();
         	
