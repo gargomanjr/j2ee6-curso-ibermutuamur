@@ -23,6 +23,8 @@
 		<class>es.ibermutuamur.curso.modelo.Staff</class>
 		<class>es.ibermutuamur.curso.modelo.Store</class>
 		<class>es.ibermutuamur.curso.modelo.FilmList</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
+		<validation-mode>AUTO</validation-mode>
 		<properties>
 		<property name="eclipselink.target-server" value="WebLogic"/>
 		<property name="eclipselink.logging.level" value="FINEST"/>
