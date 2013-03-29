@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
@@ -73,7 +74,7 @@ public class ConcurrenciaOptimista extends HttpServlet {
         	
 			Query minPais = em.createQuery("Select min(p.countryId) from Country p");
 		    int minIdpais= (Integer) minPais.getSingleResult();		   
-			Country pais = em.find(Country.class, minIdpais);
+			Country pais = em.find(Country.class, minIdpais,LockModeType.OPTIMISTIC);
 			HiloOptimista hilo = new HiloOptimista();
 			hilo.start();
 			System.out.println("Continua hilo principal");
@@ -85,10 +86,12 @@ public class ConcurrenciaOptimista extends HttpServlet {
 				System.out.println("Error en hilo padre");
 				ie.printStackTrace();
 			}
+			out.println("<h4>OPTIMISTIC_FORCE_INCREMENT</h4>");
 			utx.begin();
-			em.flush();
-			pais.getCountry();
+			pais = em.find(Country.class, minIdpais,LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			out.println("<h4>Valor del pais antes de commit: "+pais.getVersion()+"</h4>");
 			utx.commit();
+			out.println("<h4>Version después del commit de lectura: "+pais.getVersion()+"</h4>");	
         	//------------------------
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,7 +122,7 @@ public class ConcurrenciaOptimista extends HttpServlet {
 			utx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.println("<h4>Error de escritura: "+e.getMessage()+"</h4>");		
+			out.println("Error de escritura: "+e.getMessage());		
 			try {
 				utx.rollback();
 				utx.commit();
@@ -138,7 +141,7 @@ public class ConcurrenciaOptimista extends HttpServlet {
 					e1.printStackTrace();
 					return;
 				}
-			out.println("<h4>Actualizado correctamente: ");	
+			out.println("<h4>Actualizado correctamente!!!!!! ");	
 		}
 	}
 	/**
