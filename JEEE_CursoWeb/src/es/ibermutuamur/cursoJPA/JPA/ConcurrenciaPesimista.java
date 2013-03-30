@@ -69,86 +69,93 @@ public class ConcurrenciaPesimista extends HttpServlet {
         out.println("<body>");
         
 		lectura(request,response,out);
-		lecturaForceIncremente(request,response,out);
-		//escritura(request,response,out);
+		lecturaForceIncrement(request,response,out);
+		escritura(request,response,out);
 		
         out.println("</body>");
         out.println("</html>");
 	}
 
-	
+	/***
+	 * El hilo hijo se queda esperando coger la fila bloqueada (flush) 
+	 * para sincronizar y cuando se libere commit grabará
+	 */
 	private void lectura(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
         try {      	 	
-            Map<String,Object> properties = new HashMap<String,Object>();
+        	utx.begin();
 			Query minPais = em.createQuery("Select min(p.countryId) from Country p");
 		    int minIdpais= (Integer) minPais.getSingleResult();		   
-			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_READ,properties);
-			pais.setCountry("Venezuela");
+			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_READ);
+			pais.getCountry();
 			HiloPesimista hilo = new HiloPesimista(out);
 			hilo.start();
-			out.println("PESSIMISTIC_READ");
+			out.println("<h3>PESSIMISTIC_READ<h3>");
 			try {
-			  System.out.println("Durmiendo hilo principal(lectura1) 5 segundos");
-			  while(hilo.isAlive()){
-				  System.out.println("Sigo durmiendo hilo 1...zzzz");
-				  Thread.sleep(2000);
-			  }
+			  System.out.println("Durmiendo hilo principal(lectura 1) 6 segundos");
+			  Thread.sleep(6000);
 			  System.out.println("Despierta hilo principal(lectura 1) ");
 			} catch (InterruptedException ie) {
 				System.out.println("Error en hilo padre");
 				ie.printStackTrace();
 			}
-        	utx.begin();
-			em.merge(pais);
 			utx.commit();
+			out.println("El padre libera el lock");
 		} catch (Exception e) {
 			e.printStackTrace();
 			out.println("<h4>Error de lectura: "+e.getMessage()+"</h4>");
 		}
 	}
 	
-	
-	private void lecturaForceIncremente(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
-        try {      	 	
-            Map<String,Object> properties = new HashMap<String,Object>();
-        	properties.put("javax.persistence.lock.timeout", 2000);
+	/***
+	 * El hilo hijo se queda esperando coger la fila bloqueada (flush) 
+	 * para sincronizar y cuando se libere fallara al tener distinta versión 
+	 * por el force increment
+	 */
+	private void lecturaForceIncrement(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
+        try {
+        	utx.begin();
 			Query minPais = em.createQuery("Select min(p.countryId) from Country p");
 		    int minIdpais= (Integer) minPais.getSingleResult();		   
-			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_FORCE_INCREMENT,properties);
-			pais.setCountry("Honduras");
+			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_FORCE_INCREMENT);
+			pais.getCountry();
 			HiloPesimista hilo = new HiloPesimista(out);
 			hilo.start();
-			out.println("PESSIMISTIC_FORCE_INCREMENT");
+			out.println("<h3>PESSIMISTIC_FORCE_INCREMENT</h3>");
 			try {
 			  System.out.println("Durmiendo hilo principal(lectura 2)");
-			  while(hilo.isAlive()){
-				  System.out.println("Sigo durmiendo hilo 2...zzzz");
-				  Thread.sleep(2000);
-			  }
+			  Thread.sleep(6000);
 			  System.out.println("Despierta hilo principal(lectura2) ");
 			} catch (InterruptedException ie) {
 				out.println("Error en hilo padre");
 				ie.printStackTrace();
 			}
-			out.println("<h4>Version pesimista force increment antes commit: "+pais.getVersion()+"</h4>");
-        	utx.begin();
-			pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_FORCE_INCREMENT,properties);
+			out.println("<h4>Version pesimista force increment antes commit: "+pais.getVersion()+"</h4>");	
 			utx.commit();
-			out.println("<h4>Version pesimista force increment antes commit: "+pais.getVersion()+"</h4>");
+			out.println("<h4>Version pesimista force increment despues commit: "+pais.getVersion()+"</h4>");
 		} catch (Exception e) {
 			e.printStackTrace();
 			out.println("<h4>Error de lectura: "+e.getMessage()+"</h4>");
 		}
 	}
 	
+	/***
+	 * El hilo hijo se queda esperando coger la fila bloqueada (flush) 
+	 * para sincronizar y cuando se libere fallara al tener distinta versión 
+	 * al grabar datos el padre.
+	 */
 	private void escritura(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
-		Query minPais = em.createQuery("Select min(p.countryId) from Country p");
-	    int minIdpais= (Integer) minPais.getSingleResult();		   
-		Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_WRITE);
-		try {      	 	
+
+		try {  
+			utx.begin();
+			Query minPais = em.createQuery("Select min(p.countryId) from Country p");
+		    int minIdpais= (Integer) minPais.getSingleResult();		   
+			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_WRITE);
+			pais.setCountry("Cuba");
+			em.merge(pais);
+			em.flush();
 			HiloPesimista hilo = new HiloPesimista(out);
 			hilo.start();
-			out.println("PESSIMISTIC_WRITE");
+			out.println("<h3>PESSIMISTIC_WRITE</h3>");
 			try {
 			  System.out.println("Durmiendo hilo principal(escritura) 5 segundos");
 			  Thread.sleep(5000);
@@ -156,35 +163,13 @@ public class ConcurrenciaPesimista extends HttpServlet {
 			} catch (InterruptedException ie) {
 				System.out.println("Error en hilo padre");
 			}
-			utx.begin();
-			pais.setCountry("Cuba");
-			em.merge(pais);
-			em.flush();
 			utx.commit();
-		} catch (Exception e) {
+			out.println("Actualizo hilo padre");
+		   } catch (Exception e) {
 			e.printStackTrace();
-			out.println("Error de escritura: "+e.getMessage());		
-			try {
-				utx.rollback();
-				utx.commit();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			} 
-			try {
-				utx.begin();
-				pais = em.find(Country.class, minIdpais);
-				pais.setCountry("Cuba");
-				em.merge(pais);
-				em.flush();
-				utx.commit();
-				} catch (Exception e1) {
-					out.println("<h4>Error de escritura: "+e1.getMessage()+"</h4>");
-					e1.printStackTrace();
-					return;
-				}
-			out.println("<h4>Actualizado correctamente!!!!!! ");	
+			out.println("Error de escritura: "+e.getMessage());	
+			}	
 		}
-	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

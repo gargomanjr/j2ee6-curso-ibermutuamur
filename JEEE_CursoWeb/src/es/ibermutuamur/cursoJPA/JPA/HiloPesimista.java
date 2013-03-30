@@ -9,9 +9,11 @@ import javax.annotation.Resource;
 import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import es.ibermutuamur.curso.modelo.Country;
@@ -50,8 +52,14 @@ public class HiloPesimista extends Thread {
 			   em.merge(pais);
 			   em.flush(); 
 			   utx.commit();	
-			   System.out.println("Termina ejecución Hilo");
+			   out.println("Termina ejecución Hilo hijo y actualiza");
 		   }catch(Exception e){
+			   try {
+				utx.rollback();
+			    } catch (Exception e1) {
+			    	out.println("No se ha podido actualizar. Error haciendo rollback");
+					e1.printStackTrace();
+			   } 
 			   e.printStackTrace();
 			   out.println("Fallo en la ejecución del Hilo Pesimista no se ha podido actualizar");
 		   }
