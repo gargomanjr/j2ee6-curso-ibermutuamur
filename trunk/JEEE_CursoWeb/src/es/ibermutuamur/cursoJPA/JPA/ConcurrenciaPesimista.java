@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
@@ -26,6 +30,7 @@ import es.ibermutuamur.curso.modelo.FilmCategory;
 import es.ibermutuamur.curso.modelo.FilmCategoryPK;
 import es.ibermutuamur.curso.modelo.Language;
 
+//Mirar si los lock tienen que ir dentro de transacciones para que hagan su efecto.
 
 
 /**
@@ -52,6 +57,8 @@ public class ConcurrenciaPesimista extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		em.setProperty("javax.persistence.lock.timeout", 4000);
+		
     	response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
     	
@@ -72,11 +79,12 @@ public class ConcurrenciaPesimista extends HttpServlet {
 	
 	private void lectura(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
         try {      	 	
-        	utx.begin();
+            Map<String,Object> properties = new HashMap<String,Object>();
 			Query minPais = em.createQuery("Select min(p.countryId) from Country p");
 		    int minIdpais= (Integer) minPais.getSingleResult();		   
-			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_READ);
-			HiloPesimista hilo = new HiloPesimista();
+			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_READ,properties);
+			pais.setCountry("Venezuela");
+			HiloPesimista hilo = new HiloPesimista(out);
 			hilo.start();
 			out.println("PESSIMISTIC_READ");
 			try {
@@ -90,7 +98,8 @@ public class ConcurrenciaPesimista extends HttpServlet {
 				System.out.println("Error en hilo padre");
 				ie.printStackTrace();
 			}
-			pais.getVersion();
+        	utx.begin();
+			em.merge(pais);
 			utx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,11 +110,13 @@ public class ConcurrenciaPesimista extends HttpServlet {
 	
 	private void lecturaForceIncremente(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
         try {      	 	
-        	utx.begin();
+            Map<String,Object> properties = new HashMap<String,Object>();
+        	properties.put("javax.persistence.lock.timeout", 2000);
 			Query minPais = em.createQuery("Select min(p.countryId) from Country p");
 		    int minIdpais= (Integer) minPais.getSingleResult();		   
-			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_FORCE_INCREMENT);
-			HiloPesimista hilo = new HiloPesimista();
+			Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_FORCE_INCREMENT,properties);
+			pais.setCountry("Honduras");
+			HiloPesimista hilo = new HiloPesimista(out);
 			hilo.start();
 			out.println("PESSIMISTIC_FORCE_INCREMENT");
 			try {
@@ -119,8 +130,9 @@ public class ConcurrenciaPesimista extends HttpServlet {
 				out.println("Error en hilo padre");
 				ie.printStackTrace();
 			}
-			pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_FORCE_INCREMENT);
 			out.println("<h4>Version pesimista force increment antes commit: "+pais.getVersion()+"</h4>");
+        	utx.begin();
+			pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_FORCE_INCREMENT,properties);
 			utx.commit();
 			out.println("<h4>Version pesimista force increment antes commit: "+pais.getVersion()+"</h4>");
 		} catch (Exception e) {
@@ -134,7 +146,7 @@ public class ConcurrenciaPesimista extends HttpServlet {
 	    int minIdpais= (Integer) minPais.getSingleResult();		   
 		Country pais = em.find(Country.class, minIdpais,LockModeType.PESSIMISTIC_WRITE);
 		try {      	 	
-			HiloPesimista hilo = new HiloPesimista();
+			HiloPesimista hilo = new HiloPesimista(out);
 			hilo.start();
 			out.println("PESSIMISTIC_WRITE");
 			try {
@@ -177,7 +189,10 @@ public class ConcurrenciaPesimista extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.setContentType("text/html;charset=UTF-8");
+		
+		em.setProperty("javax.persistence.lock.timeout", 4000);
+		
+		response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
     	
         out.println("<html>");
