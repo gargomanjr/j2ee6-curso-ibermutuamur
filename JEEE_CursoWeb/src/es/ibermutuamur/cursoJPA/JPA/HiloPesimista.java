@@ -2,6 +2,8 @@
 package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.naming.InitialContext;
@@ -16,16 +18,16 @@ import es.ibermutuamur.curso.modelo.Country;
 
 public class HiloPesimista extends Thread {
 
-	//@PersistenceContext(unitName="JEEE_CursoWeb")
+	@PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
-   // @Resource
+    @Resource
     UserTransaction utx; 
-    //PrintWriter out;
+    PrintWriter out;
     
-    /*public HiloPesimista (PrintWriter out){
+    public HiloPesimista (PrintWriter out){
     	super();
     	this.out = out;
-    }*/
+    }
     
 	   public void run()
 	   {
@@ -46,12 +48,12 @@ public class HiloPesimista extends Thread {
 			   int numAleatorio = (int) (Math.random()*1000+1);
 			   pais.setCountry("UK "+ numAleatorio);
 			   em.merge(pais);
-			   em.flush();
+			   em.flush(); 
 			   utx.commit();	
 			   System.out.println("Termina ejecución Hilo");
 		   }catch(Exception e){
 			   e.printStackTrace();
-			   System.out.println("Fallo en la ejecución del Hilo Pesimista");
+			   out.println("Fallo en la ejecución del Hilo Pesimista no se ha podido actualizar");
 		   }
 	   } 
 }
