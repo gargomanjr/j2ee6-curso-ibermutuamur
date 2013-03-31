@@ -84,11 +84,12 @@ public class CustomerFacade
         System.out.println("Hola desde el Bean Customer Facade :) son las  " +d.toString());
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    @Schedule( minute="*/5",hour="*")
+
+    @Schedule( minute="*/20",hour="*")
     public void insertarPais(){
         Country c = new Country();
         c.setCountry("Pais Timer");
+        em.flush();
         em.persist(c);
     }
     
