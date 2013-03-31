@@ -38,4 +38,5 @@ public interface CustomerFacadeLocal
     @Asynchronous
     public Future<Integer> fibonacci(int pos);
 
+    public void insertarPais();
 }
