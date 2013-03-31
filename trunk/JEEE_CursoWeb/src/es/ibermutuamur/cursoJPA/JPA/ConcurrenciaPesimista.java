@@ -2,16 +2,10 @@ package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
@@ -19,16 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.modelo.Category;
 import es.ibermutuamur.curso.modelo.Country;
-import es.ibermutuamur.curso.modelo.Film;
-import es.ibermutuamur.curso.modelo.FilmCategory;
-import es.ibermutuamur.curso.modelo.FilmCategoryPK;
-import es.ibermutuamur.curso.modelo.Language;
 
 //Mirar si los lock tienen que ir dentro de transacciones para que hagan su efecto.
 
