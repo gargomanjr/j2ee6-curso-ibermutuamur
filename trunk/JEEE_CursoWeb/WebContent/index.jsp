@@ -18,11 +18,9 @@
 </head>
 <body>
 
-<header id="dHeader">
+<header id="dHeader" onclick="window.location.reload()">
         Curso JPA /EJB 3.X
 </header>
-<section id="dSection">
-</section>
 
 <aside id="dAside">
       <iframe id="menu" name="menu" src="html/treeHTML5.html"></iframe>
