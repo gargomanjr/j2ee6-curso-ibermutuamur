@@ -2,8 +2,6 @@ package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -15,16 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.modelo.Category;
 import es.ibermutuamur.curso.modelo.Country;
-import es.ibermutuamur.curso.modelo.Film;
-import es.ibermutuamur.curso.modelo.FilmCategory;
-import es.ibermutuamur.curso.modelo.FilmCategoryPK;
-import es.ibermutuamur.curso.modelo.Language;
 
 
 
