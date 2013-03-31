@@ -79,7 +79,27 @@ public class Select_Escalonado extends HttpServlet {
         		}
         		out.println("<h4>Categorias: "+categoriasS+"</h4>");
         	}
-
+        	out.println("<h4>Ejemplo Named Query: Empiezan por d</h4>");
+        	Query namedq = em.createNamedQuery("Category.findByCategory");
+        	namedq.setParameter("nombre", "D%");
+        	List<Category> categorias = namedq.getResultList();
+        	String categoriasS="";
+    		for(int i=0;i<categorias.size();i++){
+    			categoriasS = categoriasS + categorias.get(i).getName() + " ";
+    		}
+    		out.println("<h4>Categorias: "+categoriasS+"</h4>");
+    		
+    		utx.begin();
+    		int numAleatorio = (int) (Math.random()*100+1);
+    		Query drama = em.createQuery("Update Category c set c.name = :new_nombre where c.name LIKE :old_nombre");
+    		drama.setParameter("old_nombre", "Dram%");
+    		drama.setParameter("new_nombre", "Drama"+numAleatorio);
+    		int numEntities_actualizadas = drama.executeUpdate();
+    		if(numEntities_actualizadas>0){
+    			out.println("<h4>Actualiazadas "+numEntities_actualizadas+" entidades</h4>");
+    		}
+    		utx.commit();
+    		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

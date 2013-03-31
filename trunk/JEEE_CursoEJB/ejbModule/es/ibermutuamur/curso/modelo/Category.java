@@ -10,6 +10,8 @@ import java.util.List;
  * The persistent class for the category database table.
  * 
  */
+@NamedQuery
+(name="Category.findByCategory", query="SELECT c FROM Category c where c.name LIKE :nombre")
 @Entity
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
