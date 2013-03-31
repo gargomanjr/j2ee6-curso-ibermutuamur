@@ -1,6 +1,10 @@
 package es.ibermutuamur.curso.facades;
 
+import java.util.concurrent.Future;
+
 import es.ibermutuamur.curso.modelo.Customer;
+
+import javax.ejb.Asynchronous;
 import javax.ejb.Local;
 
 
@@ -30,5 +34,8 @@ public interface CustomerFacadeLocal
      * @generated DT_ID=none
      */
     public void removeCustomer(Customer customer);
+    
+    @Asynchronous
+    public Future<Integer> fibonacci(int pos);
 
 }
