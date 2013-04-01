@@ -1,6 +1,7 @@
 package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -45,11 +46,23 @@ public class InsertarPeliculaOK extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarPais();
+    	response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+    	
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Resultado función</title>");
+        out.println("</head>");
+        out.println("<body>");
+		
+        insertarPais(out);
+		
+        out.println("</body>");
+        out.println("</html>");
 	}
 
 	
-	private void insertarPais(){
+	private void insertarPais(PrintWriter out){
         try {      	
         	Date d = new Date();    	
         	utx.begin();  
@@ -83,6 +96,7 @@ public class InsertarPeliculaOK extends HttpServlet {
         	em.persist(genero);
         	em.flush();
         	utx.commit();
+        	out.println("Insertada entidad película con id " + pelicula.getFilmId());
         	//------------------------
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +106,6 @@ public class InsertarPeliculaOK extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarPais();
 	}
 
 }
