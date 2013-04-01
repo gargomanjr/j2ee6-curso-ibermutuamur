@@ -5,4 +5,5 @@
     <module id="glassfish.jsf" version="1.0.0.0_2-1-5"/>
     <module id="javax.persistence" javadoc="http://java.sun.com/javaee/5/docs/api"/>
     <module id="org.eclipse.persistence"/>
+    <library path="server/lib/wseeclient.jar"/>
 </system-libraries>
