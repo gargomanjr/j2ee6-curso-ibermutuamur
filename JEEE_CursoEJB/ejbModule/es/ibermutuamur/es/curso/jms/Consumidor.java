@@ -3,6 +3,7 @@ package es.ibermutuamur.es.curso.jms;
 import javax.jms.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import javax.annotation.Resource;
 import javax.ejb.*;
@@ -13,7 +14,6 @@ import es.ibermutuamur.curso.modelo.Country;
 @MessageDriven(mappedName = "jms/Queue", activationConfig = {
 	@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
 	@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")})
-
 	@TransactionAttribute(TransactionAttributeType.NEVER)
 public class Consumidor implements MessageListener  {
 
@@ -40,6 +40,11 @@ public class Consumidor implements MessageListener  {
 		utx.commit();
 		
 		} catch (Exception e) {
+			try {
+				utx.rollback();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 			return;
 		}
