@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.naming.InitialContext;
 import javax.persistence.Cache;
 import javax.persistence.EntityManager;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.modelo.Category;
 import es.ibermutuamur.curso.modelo.Language;
 
 /**
