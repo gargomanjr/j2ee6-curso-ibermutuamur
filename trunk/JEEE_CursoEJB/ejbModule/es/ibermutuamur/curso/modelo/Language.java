@@ -11,6 +11,7 @@ import java.util.List;
  * The persistent class for the language database table.
  * 
  */
+@Cacheable
 @Entity
 public class Language implements Serializable {
 	private static final long serialVersionUID = 1L;
