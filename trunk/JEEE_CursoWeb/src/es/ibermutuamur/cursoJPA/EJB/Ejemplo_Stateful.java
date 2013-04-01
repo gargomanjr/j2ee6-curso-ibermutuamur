@@ -56,8 +56,12 @@ public class Ejemplo_Stateful extends HttpServlet {
 	        {
 			 if(cart==null){
 				 InitialContext ctx = new InitialContext();
-				 cart = (ShoppingCart) ctx.lookup("ShoppingCartBean ");
+				 cart = (ShoppingCart) ctx.lookup("ShoppingCartBean");
 			 }
+			 InitialContext ctx = new InitialContext();
+			 //cart = (ShoppingCart) ctx.lookup("ShoppingCart");
+			 cart = (ShoppingCart) ctx.lookup("ShoppingCart#es.ibermutuamur.curso.facades.ShoppingCart");		   
+			 
         	 out.println("<h4>Buying 1 memory stick</h4>");
              cart.buy("Memory stick", 1);
              out.println("<h4>Buying another memory stick</h4>");
