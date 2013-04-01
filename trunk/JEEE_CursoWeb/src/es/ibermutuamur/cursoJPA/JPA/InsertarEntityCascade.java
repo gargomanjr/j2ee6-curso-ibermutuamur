@@ -1,6 +1,7 @@
 package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -38,11 +39,23 @@ public class InsertarEntityCascade extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarPais();
+    	response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+    	
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Resultado función</title>");
+        out.println("</head>");
+        out.println("<body>");
+		
+        insertarPais(out);
+		
+        out.println("</body>");
+        out.println("</html>");
 	}
 
 	
-	private void insertarPais(){
+	private void insertarPais(PrintWriter out){
         try {      	
         	utx.begin();
         	
@@ -53,9 +66,10 @@ public class InsertarEntityCascade extends HttpServlet {
 	        ciudad.setCountry(pais);
 	        ciudad.setCity("Hamburgo");
 	        em.persist(ciudad);
-	        
-	        
+	        em.flush();
 	        utx.commit();
+	        
+	        out.println("Insertada Ciudad Hamburgo con id " + ciudad.getCityId() + " y Pais Alemania con id "+pais.getCountryId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,7 +78,6 @@ public class InsertarEntityCascade extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarPais();
 	}
 
 }
