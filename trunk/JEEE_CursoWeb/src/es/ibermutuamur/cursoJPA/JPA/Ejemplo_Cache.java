@@ -100,6 +100,7 @@ public class Ejemplo_Cache extends HttpServlet {
     		Cache cache = em.getEntityManagerFactory().getCache();
     		if (cache.contains(Language.class, id_minLeng)) {
     			out.println("<h4> La entidad está cacheada </h4>");
+    			//cache.evict(Language.class, id_minLeng); Esto sacaría de la cache la entity
     		} else {
     			out.println("<h4> La entidad no está cacheada</h4>");
     		}
