@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 
 
 @Stateless(name="CalculadoraFacade")
-public class CalculadoraFacade implements CalculadoraFacadeLocal{
+public class CalculadoraFacade{
   
  public float add(float x, float y){ 
   return x + y;
