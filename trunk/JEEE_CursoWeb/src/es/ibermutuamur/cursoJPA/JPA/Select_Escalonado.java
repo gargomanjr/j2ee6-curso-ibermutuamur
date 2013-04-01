@@ -57,6 +57,7 @@ public class Select_Escalonado extends HttpServlet {
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	private void select_Escalonado(PrintWriter out){
         try {
         	Query countCategory = em.createQuery("Select count(c) from Category c");
