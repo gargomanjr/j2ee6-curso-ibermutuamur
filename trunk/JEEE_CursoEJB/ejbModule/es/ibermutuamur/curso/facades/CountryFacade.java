@@ -20,7 +20,7 @@ import javax.transaction.UserTransaction;
 /**
  * @generated DT_ID=none
  */
-//@TransactionManagement(TransactionManagementType.BEAN)
+@TransactionManagement(TransactionManagementType.CONTAINER)
 @Stateless(name = "CountryFacade", mappedName = "JEEE_Curso-JEEE_CursoEJB-CountryFacade")
 public class CountryFacade implements CountryFacadeLocal
 {
