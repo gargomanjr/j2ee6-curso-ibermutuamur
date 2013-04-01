@@ -4,7 +4,7 @@
     <wls:context-root>JEEE_CursoWeb</wls:context-root>
     <wls:jsp-descriptor>
         <wls:keepgenerated>true</wls:keepgenerated>
-        <wls:working-dir>C:\Users\Tony\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\prueba\work\JEEE_CursoWeb</wls:working-dir>
+        <wls:working-dir>C:\Users\ajgarciam\workspace\CursoJPA\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\JPA_domain\work\JEEE_CursoWeb</wls:working-dir>
         <wls:debug>true</wls:debug>
     </wls:jsp-descriptor>
 </wls:weblogic-web-app>

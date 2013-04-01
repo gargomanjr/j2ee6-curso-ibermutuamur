@@ -50,7 +50,20 @@ public class InsertarPeliculaEnum extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+    	response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+    	
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Resultado función</title>");
+        out.println("</head>");
+        out.println("<body>");
+		
 		enumerados(request,response);
+		
+        out.println("</body>");
+        out.println("</html>");
 	}
 
 	

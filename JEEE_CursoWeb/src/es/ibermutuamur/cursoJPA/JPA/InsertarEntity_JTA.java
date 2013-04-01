@@ -77,10 +77,11 @@ public class InsertarEntity_JTA extends HttpServlet {
 
 	        Country pais = new Country();
 	        pais.setCountry("Italia");
+	        em.flush();
 	        em.persist(pais);
 
 	        utx.commit();
-	        out.println("<h4>Insertada entidad de pais <h4>");
+	        out.println("<h4>Insertada entidad de pais id "+pais.getCountryId()+" <h4>");
 	        
 	        Country pais1 = new Country();
 	        pais1.setCountry("Francia");
