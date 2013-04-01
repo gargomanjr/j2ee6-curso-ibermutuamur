@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.ibermutuamur.curso.facades.CalculadoraFacadeLocal;
+import es.ibermutuamur.curso.facades.CalculadoraFacade;
 
 /**
  * Servlet implementation class InsertarEntity
@@ -19,7 +19,7 @@ import es.ibermutuamur.curso.facades.CalculadoraFacadeLocal;
 @WebServlet(name="/Stateless", urlPatterns="/Stateless")
 public class Ejemplo_Stateless extends HttpServlet {
 	
-	@EJB CalculadoraFacadeLocal calculadora; 
+	@EJB CalculadoraFacade calculadora; 
 	
        
     /**
