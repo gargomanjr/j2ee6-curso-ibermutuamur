@@ -6,7 +6,7 @@ import java.util.HashMap;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 
-@Stateful(name="ShoppingCartBean",mappedName="ShoppingCartBean")
+@Stateful(name="ShoppingCart",mappedName="ShoppingCart")
 public class ShoppingCartBean implements ShoppingCart, Serializable
 {
 
