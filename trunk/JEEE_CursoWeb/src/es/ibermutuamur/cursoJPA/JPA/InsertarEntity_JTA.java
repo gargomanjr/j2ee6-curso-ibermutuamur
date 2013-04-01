@@ -1,6 +1,7 @@
 package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.naming.InitialContext;
@@ -45,11 +46,24 @@ public class InsertarEntity_JTA extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarPais();
+	
+    	response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+    	
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Resultado función</title>");
+        out.println("</head>");
+        out.println("<body>");
+		
+        insertarPais(out);
+		
+        out.println("</body>");
+        out.println("</html>");
 	}
 
 	
-	private void insertarPais(){
+	private void insertarPais(PrintWriter out){
         try {
         	if(factory== null && em == null){
 				factory = Persistence.createEntityManagerFactory("JEEE_CursoEJB");
@@ -66,18 +80,22 @@ public class InsertarEntity_JTA extends HttpServlet {
 	        em.persist(pais);
 
 	        utx.commit();
+	        out.println("<h4>Insertada entidad de pais <h4>");
+	        
+	        Country pais1 = new Country();
+	        pais1.setCountry("Francia");
+	        em.persist(pais1);
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
+			out.println("<h4>Error al insertar otra entidad de pais sin transacción "+e.getMessage()+" <h4>");
 		}
-        Country pais1 = new Country();
-        pais1.setCountry("Francia");
-        em.persist(pais1);
+
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		insertarPais();
 	}
 
 }
