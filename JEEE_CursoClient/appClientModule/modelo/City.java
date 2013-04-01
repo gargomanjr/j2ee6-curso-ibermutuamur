@@ -3,9 +3,6 @@ package modelo;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.eclipse.persistence.annotations.Direction;
-import org.eclipse.persistence.annotations.NamedStoredProcedureQuery;
-import org.eclipse.persistence.annotations.StoredProcedureParameter;
 import java.sql.Timestamp;
 import java.util.List;
 

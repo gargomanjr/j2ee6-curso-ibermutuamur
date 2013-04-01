@@ -14,6 +14,10 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="oracle.eclipse.tools.weblogic.lib.application/JEEE_Curso"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/JEEE_CursoEJB"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/JEEE_CursoEJB">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
