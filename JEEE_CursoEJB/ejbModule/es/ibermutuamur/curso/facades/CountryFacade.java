@@ -3,24 +3,18 @@ package es.ibermutuamur.curso.facades;
 import es.ibermutuamur.curso.modelo.Country;
 
 import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 
 /**
  * @generated DT_ID=none
  */
-@TransactionManagement(TransactionManagementType.CONTAINER)
 @Stateless(name = "CountryFacade", mappedName = "JEEE_Curso-JEEE_CursoEJB-CountryFacade")
 public class CountryFacade implements CountryFacadeLocal
 {

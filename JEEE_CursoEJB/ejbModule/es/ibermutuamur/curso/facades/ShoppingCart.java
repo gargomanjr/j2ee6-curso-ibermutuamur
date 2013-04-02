@@ -2,6 +2,7 @@ package es.ibermutuamur.curso.facades;
 
 import java.util.HashMap;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Remove;
@@ -16,4 +17,6 @@ public interface ShoppingCart
    HashMap<String, Integer> getCartContents();
 
    @Remove void checkout();
+   
+   @PostConstruct void postconstructor();
 }
