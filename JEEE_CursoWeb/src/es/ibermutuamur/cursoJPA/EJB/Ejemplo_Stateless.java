@@ -62,6 +62,12 @@ public class Ejemplo_Stateless extends HttpServlet {
         	out.println("<h4>Multiplicación: "+calculadora.multiply(numero1, numero2)+"</h4>");
         	out.println("<h4>División: "+calculadora.division(numero1, numero2)+"</h4>");
         	
+        	calculadora.add(1, 0);
+        	calculadora.subtract(1, 0);
+        	float mult = calculadora.multiply(1, 0);
+        	float div = calculadora.division(1, 0);
+        	System.out.println("Multiplicación: "+mult);
+        	System.out.println("División: "+div);
         	
 		} catch (Exception e) {
 			e.printStackTrace();
