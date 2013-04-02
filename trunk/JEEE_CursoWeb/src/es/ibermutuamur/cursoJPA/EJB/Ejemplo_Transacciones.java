@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.facades.CountryFacade;
 import es.ibermutuamur.curso.facades.CountryFacadeLocal;
 import es.ibermutuamur.curso.modelo.Country;
 
@@ -147,7 +146,15 @@ public class Ejemplo_Transacciones extends HttpServlet {
         		out.println("<h4>Error en NEVER "+ e.getMessage() +"</h4>");
         	}
         	///////////////////////////////////////////////////////////////////////
-        	
+        	out.println("<h4>SUPPORTS ERROR</h4>");
+        	Country supportsERRoR = new Country();
+        	supportsERRoR.setCountry("SUPERROR");
+        	try{
+        		int id = facade.persistCountrySUPPORTS(supportsERRoR).getCountryId();
+        	out.println("<h4>Usando transaccción SUPPORTS ok id--> "+ id +"</h4>");
+        	}catch(Exception e){
+        		out.println("<h4>Error en SUPPORTS ERROR"+ e.getMessage() +"</h4>");
+        	}
         	
 
 

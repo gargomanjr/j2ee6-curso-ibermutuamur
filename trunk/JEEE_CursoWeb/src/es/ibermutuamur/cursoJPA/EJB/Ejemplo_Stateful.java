@@ -20,10 +20,8 @@ import es.ibermutuamur.curso.facades.ShoppingCart;
 @SuppressWarnings("serial")
 @WebServlet(name="/Stateful", urlPatterns="/Stateful")
 public class Ejemplo_Stateful extends HttpServlet {
-	
-	@EJB ShoppingCart cart; 
-	
-       
+	       
+	@EJB ShoppingCart cart;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -54,14 +52,9 @@ public class Ejemplo_Stateful extends HttpServlet {
 	private void ejemploShoppingCart(PrintWriter out){   	
 	        try
 	        {
-			 if(cart==null){
-				 InitialContext ctx = new InitialContext();
-				 cart = (ShoppingCart) ctx.lookup("ShoppingCartBean");
-			 }
+	        
 			 InitialContext ctx = new InitialContext();
-			 cart = (ShoppingCart) ctx.lookup("ShoppingCart#es.ibermutuamur.curso.facades.ShoppingCart");
-			 //cart = (ShoppingCart) ctx.lookup("ShoppingCart");
-					   
+			 ShoppingCart cart = (ShoppingCart) ctx.lookup("ShoppingCart#es.ibermutuamur.curso.facades.ShoppingCart");
 			 
         	 out.println("<h4>Buying 1 memory stick</h4>");
              cart.buy("Memory stick", 1);
@@ -87,6 +80,7 @@ public class Ejemplo_Stateful extends HttpServlet {
 				e.printStackTrace();
 				out.println("<h4>"+e.getMessage()+"</h4>");
 			 }
+	        
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
