@@ -3,9 +3,12 @@ package es.ibermutuamur.curso.facades;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.inject.Named;
 
+@Named
 @Stateful(name="ShoppingCart",mappedName="ShoppingCart")
 public class ShoppingCartBean implements ShoppingCart, Serializable
 {
@@ -32,6 +35,14 @@ public class ShoppingCartBean implements ShoppingCart, Serializable
       return cart;
    }
 
+   @PostConstruct
+   public void postconstructor()
+   {
+      System.out.println("Después de crear el Bean");
+      
+   }
+   
+   
    @Remove
    public void checkout()
    {
