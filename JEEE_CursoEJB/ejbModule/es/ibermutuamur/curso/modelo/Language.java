@@ -16,7 +16,7 @@ import java.util.List;
 public class Language implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@TableGenerator(name = "SEQ_LANGUAJE", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 7)
+	@TableGenerator(name = "SEQ_LANGUAJE", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 7,allocationSize =1)
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE,generator="SEQ_LANGUAJE")
 	@Column(name="language_id")
