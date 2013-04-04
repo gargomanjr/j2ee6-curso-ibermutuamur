@@ -9,7 +9,7 @@ public class Interceptor{
 	@AroundInvoke
 	public Object validationCalculadora(InvocationContext ctx) throws Exception{
 		Object objecto = null;
-		System.out.println("Metodo  "+ ctx.getMethod().getName());
+		System.out.println("Metodo  "+ ctx.getTarget().toString()+ " "+ ctx.getMethod().getName() + " "+ ctx.getParameters().length);
 		float param = (Float)ctx.getParameters()[0];
 		float param1 = (Float)ctx.getParameters()[1];
 	    if (param == 0  || param1 == 0){
