@@ -22,7 +22,12 @@ public class Ej_Singleton {
   
   @Lock(LockType.WRITE)
   public void setStatus(String newStatus) {
-    status = newStatus;
+	try {
+		Thread.sleep(2000);
+	    status = newStatus;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
   }
 
   @Lock(LockType.READ)
