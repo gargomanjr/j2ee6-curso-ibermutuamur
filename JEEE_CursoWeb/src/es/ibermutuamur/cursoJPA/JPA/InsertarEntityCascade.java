@@ -65,7 +65,14 @@ public class InsertarEntityCascade extends HttpServlet {
 	        City ciudad = new City();
 	        ciudad.setCountry(pais);
 	        ciudad.setCity("Hamburgo");
+	        
+	        City ciudad2 = new City();
+	        ciudad2.setCountry(pais);
+	        ciudad2.setCity("Berlin");
+	        
+	        
 	        em.persist(ciudad);
+	        em.persist(ciudad2);
 	        em.flush();
 	        utx.commit();
 	        
