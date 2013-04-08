@@ -67,13 +67,12 @@ public class InsertarPeliculaOK extends HttpServlet {
         	Date d = new Date();    	
         	utx.begin();  
         	
+        	//Opción 1
         	Language idioma = new Language();
         	idioma.setName("Español");   
         	idioma.setLastUpdate(d);
         	em.persist(idioma);
-        	utx.commit(); 
-	        
-        	utx.begin();  
+	        em.flush();
         	Film pelicula = new Film();
         	pelicula.setDescription("Gladiator");
         	pelicula.setTitle("Gladiator");
@@ -84,9 +83,7 @@ public class InsertarPeliculaOK extends HttpServlet {
         	pelicula.setLanguage1(idioma);
         	pelicula.setLanguage1(idioma);
         	em.persist(pelicula);
-        	utx.commit();
-        	
-        	utx.begin();
+        	em.flush();
 	        FilmCategoryPK pkfilmc = new FilmCategoryPK();
         	FilmCategory genero = new FilmCategory();
         	Category category = em.find(Category.class, 1);   
@@ -96,9 +93,52 @@ public class InsertarPeliculaOK extends HttpServlet {
         	em.persist(genero);
         	em.flush();
         	utx.commit();
-        	out.println("Insertada entidad película con id " + pelicula.getFilmId());
+        	out.println("<h4>Insertada entidad película " + pelicula.getTitle() +" con id " + pelicula.getFilmId()+"</h4>");
+        	
+		} catch (Exception e) {
+			out.println("<h4>Error al insertar película Opcion 1 </h4>" + e.toString());
+			e.printStackTrace();
+		}	
+        try{
+        	Date d = new Date();    
+        	//Opción 2	
+        	utx.begin();     	
+        	Language idioma1 = new Language();
+        	idioma1.setName("Español1");   
+        	idioma1.setLastUpdate(d);
+        	em.persist(idioma1);
+	        em.flush();
+        	utx.commit(); 
+	        
+        	utx.begin();  
+        	Film pelicula2 = new Film();
+        	pelicula2.setDescription("Troya");
+        	pelicula2.setTitle("Troya");
+        	pelicula2.setRentalRate(new BigDecimal(3.5));
+        	pelicula2.setRentalDuration((byte)3);
+        	pelicula2.setLastUpdate(d);
+        	pelicula2.setReplacementCost(new BigDecimal(33.5));
+        	pelicula2.setLanguage1(idioma1);
+        	pelicula2.setLanguage1(idioma1);
+        	em.persist(pelicula2);
+        	utx.commit(); 
+        	
+        	utx.begin();
+        	em.flush();
+	        FilmCategoryPK pkfilmc2 = new FilmCategoryPK();
+        	FilmCategory genero2 = new FilmCategory();
+        	Category category = em.find(Category.class, 1);   
+        	pkfilmc2.setCategoryId(category.getCategoryId());
+        	pkfilmc2.setFilmId(pelicula2.getFilmId());
+        	genero2.setId(pkfilmc2);
+        	em.persist(genero2);
+        	em.flush();
+        	utx.commit();
+        	out.println("<h4>Insertada entidad película " + pelicula2.getTitle() +" con id " + pelicula2.getFilmId()+"</h4>");
+  	
         	//------------------------
 		} catch (Exception e) {
+			out.println("<h4>Error al insertar película Opcion 2 </h4>" + e.toString());
 			e.printStackTrace();
 		}
 	}
