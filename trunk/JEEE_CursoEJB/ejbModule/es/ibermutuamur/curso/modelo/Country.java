@@ -19,7 +19,7 @@ public class Country implements Serializable {
 	@Column
 	int version;
 	
-	@TableGenerator(name = "SEQ_COUNTRY", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 110)
+	@TableGenerator(name = "SEQ_COUNTRY", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 110,allocationSize=1)
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE,generator="SEQ_COUNTRY")
 	@Column(name="country_id")
