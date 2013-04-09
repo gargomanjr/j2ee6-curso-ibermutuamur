@@ -72,7 +72,6 @@ public class InsertarPeliculaOK extends HttpServlet {
         	idioma.setName("Español");   
         	idioma.setLastUpdate(d);
         	em.persist(idioma);
-	        em.flush();
         	Film pelicula = new Film();
         	pelicula.setDescription("Gladiator");
         	pelicula.setTitle("Gladiator");
@@ -83,7 +82,6 @@ public class InsertarPeliculaOK extends HttpServlet {
         	pelicula.setLanguage1(idioma);
         	pelicula.setLanguage1(idioma);
         	em.persist(pelicula);
-        	em.flush();
 	        FilmCategoryPK pkfilmc = new FilmCategoryPK();
         	FilmCategory genero = new FilmCategory();
         	Category category = em.find(Category.class, 1);   
@@ -91,7 +89,6 @@ public class InsertarPeliculaOK extends HttpServlet {
         	pkfilmc.setFilmId(pelicula.getFilmId());
         	genero.setId(pkfilmc);
         	em.persist(genero);
-        	em.flush();
         	utx.commit();
         	out.println("<h4>Insertada entidad película " + pelicula.getTitle() +" con id " + pelicula.getFilmId()+"</h4>");
         	
