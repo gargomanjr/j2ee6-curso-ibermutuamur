@@ -2,11 +2,13 @@ package es.ibermutuamur.cursoJPA.JPA;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
+import es.ibermutuamur.curso.modelo.City;
 import es.ibermutuamur.curso.modelo.Country;
 
 /**
@@ -49,7 +52,7 @@ public class FlushModes extends HttpServlet {
         out.println("<body>");
 		
         flushModes(out);
-		
+		//update(out);
         out.println("</body>");
         out.println("</html>");
 	}
@@ -57,32 +60,68 @@ public class FlushModes extends HttpServlet {
 	
 	private void flushModes(PrintWriter out){
         try {     
-        	em.setFlushMode(FlushModeType.COMMIT);
+        	
+			Query maxPais = em.createQuery("Select max(p.countryId) from Country p");
+			int maxIdpais= (Integer) maxPais.getSingleResult();
+        	
+
         	utx.begin();	
         	em.setFlushMode(FlushModeType.COMMIT);
         	out.println("<h4>Flush Mode "+em.getFlushMode().toString()+"</h4>");
-	        Country pais = new Country();   
-	        pais.setCountry("FLUSH1");
-	        em.persist(pais);
-	        out.println("<h4>Inserta pais "+pais.getCountryId() +" con id "+pais.getCountryId()+"</h4>");
+        	Country entityCountry = em.find(Country.class, maxIdpais);
+	        City ciudad = new City();   
+	        ciudad.setCity("CFLUSH1");
+	        ciudad.setCountry(entityCountry);
+	        em.persist(ciudad);
+	        entityCountry = em.find(Country.class, maxIdpais);
+	        imprimerCiudades(out, maxIdpais);
 	        utx.commit();
-	        out.println("<h4>Inserta pais "+pais.getCountryId() +" con id "+pais.getCountryId()+"</h4>");
+	        entityCountry = em.find(Country.class, maxIdpais);
+	        imprimerCiudades(out, maxIdpais);
+	        
 	        
 	        //Opción por defecto
-        	em.setFlushMode(FlushModeType.AUTO);
         	utx.begin();	
+        	em.setFlushMode(FlushModeType.AUTO);
         	out.println("<h4>Flush Mode "+em.getFlushMode().toString()+"</h4>");
-	        Country pais2 = new Country();    
-	        pais2.setCountry("FLUSH2");
-	        em.persist(pais2);
-	        out.println("<h4>Inserta pais2 "+pais2.getCountryId() +" con id "+pais2.getCountryId()+"</h4>");
+        	entityCountry = em.find(Country.class, maxIdpais);
+	        ciudad = new City();   
+	        ciudad.setCity("CFLUSH2");
+	        ciudad.setCountry(entityCountry);
+	        em.persist(ciudad);
+	        entityCountry = em.find(Country.class, maxIdpais);
+	        imprimerCiudades(out, maxIdpais);
 	        utx.commit();
-	        out.println("<h4>Inserta pais2 "+pais2.getCountryId() +" con id "+pais2.getCountryId()+"</h4>");
+	        entityCountry = em.find(Country.class, maxIdpais);
+	        imprimerCiudades(out, maxIdpais);
 	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+		
+	
+	@SuppressWarnings("unchecked")
+	private void imprimerCiudades(PrintWriter out,int  idpais){
+		Query q = em.createQuery("Select c from City c where c.country.countryId = :country");
+		q.setParameter("country", idpais);
+		List<City> lista_ciudades = q.getResultList();
+		String ciudadesd = "";
+		if(lista_ciudades!=null && lista_ciudades.size()>0){
+			for(int i=0;i<lista_ciudades.size();i++){
+				ciudadesd = lista_ciudades.get(i).getCity()+  " " + ciudadesd;
+			}
+			out.println("<h4> El Pais " +" tiene las siguientes ciudades asociadas "+ciudadesd +"</h4>");
+		}
+		else{
+			out.println("<h4> El Pais " +" no tiene ciudades asociadas </h4>");
+		}
+		
+	}
+	
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
