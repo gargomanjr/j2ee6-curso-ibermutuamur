@@ -87,7 +87,6 @@ public class CustomerFacade
     public void insertarPais(){
         Country c = new Country();
         c.setCountry("Pais Timer");
-        em.flush();
         em.persist(c);
     }
     
