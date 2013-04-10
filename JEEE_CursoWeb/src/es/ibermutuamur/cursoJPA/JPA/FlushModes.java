@@ -67,7 +67,7 @@ public class FlushModes extends HttpServlet {
 
         	utx.begin();	
         	em.setFlushMode(FlushModeType.COMMIT);
-        	out.println("<h4>Flush Mode "+em.getFlushMode().toString()+"</h4>");
+        	out.println("<h3>Flush Mode "+em.getFlushMode().toString()+"</h3>");
         	Country entityCountry = em.find(Country.class, maxIdpais);
 	        City ciudad = new City();   
 	        ciudad.setCity("CFLUSH1");
@@ -80,10 +80,25 @@ public class FlushModes extends HttpServlet {
 	        imprimerCiudades(out, maxIdpais);
 	        
 	        
+        	utx.begin();	
+        	em.setFlushMode(FlushModeType.COMMIT);
+        	out.println("<h3>Flush Mode "+em.getFlushMode().toString()+"con flush antes del commit </h3>");
+        	entityCountry = em.find(Country.class, maxIdpais);
+	        ciudad = new City();   
+	        ciudad.setCity("CFLUSH1");
+	        ciudad.setCountry(entityCountry);
+	        em.persist(ciudad);
+	        em.flush();
+	        imprimerCiudades(out, maxIdpais);
+	        utx.commit();
+	        entityCountry = em.find(Country.class, maxIdpais);
+	        imprimerCiudades(out, maxIdpais);
+	        
+	        
 	        //Opción por defecto
         	utx.begin();	
         	em.setFlushMode(FlushModeType.AUTO);
-        	out.println("<h4>Flush Mode "+em.getFlushMode().toString()+"</h4>");
+        	out.println("<h3>Flush Mode "+em.getFlushMode().toString()+"</h3>");
         	entityCountry = em.find(Country.class, maxIdpais);
 	        ciudad = new City();   
 	        ciudad.setCity("CFLUSH2");
