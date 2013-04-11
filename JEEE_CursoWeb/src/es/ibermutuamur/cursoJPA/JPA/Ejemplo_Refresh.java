@@ -61,14 +61,17 @@ public class Ejemplo_Refresh extends HttpServlet {
 	
 	
 	private void ejemplo_Refresh(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
-		Query maxLenguage = em.createQuery("Select max(l.languageId) from Language l");
-	    int maxLenguag= (Integer) maxLenguage.getSingleResult();		   
-		Language lenguaje = em.find(Language.class, maxLenguag);
-		out.println("<h4>" +lenguaje.getName()+" original </h4>");
-		System.out.println("<h4>" +lenguaje.getName()+" original </h4>");
-		try {      	 	
+		try {  
+			utx.begin();
+			Query maxLenguage = em.createQuery("Select max(l.languageId) from Language l");
+		    int maxLenguag= (Integer) maxLenguage.getSingleResult();		   
+			Language lenguaje = em.find(Language.class, maxLenguag);
+			out.println("<h4>" +lenguaje.getName()+" original </h4>");
+			System.out.println("<h4>" +lenguaje.getName()+" original de la entidad </h4>");
+			//////////////////////////////////////////////
 			HiloRefresh hilo = new HiloRefresh();
 			hilo.start();
+			//////////////////////////////////////////////
 			System.out.println("Continua hilo principal");
 			try {
 			  System.out.println("Durmiendo hilo principal(escritura) 5 segundos");
@@ -77,15 +80,11 @@ public class Ejemplo_Refresh extends HttpServlet {
 			} catch (InterruptedException ie) {
 				System.out.println("Error en hilo padre");
 			}
-			utx.begin();
-			//lenguaje.setName("Len1");
-			out.println("<h4>" +lenguaje.getName()+"</h4>");
-			System.out.println("<h4>" +lenguaje.getName()+"</h4>");
-			em.merge(lenguaje);
-			out.println("<h4>" +lenguaje.getName()+"</h4>");
-			System.out.println("<h4>" +lenguaje.getName()+"</h4>");
+			out.println("<h4>" +lenguaje.getName()+" despues de actualizar el hilo </h4>");
+			lenguaje.setName("Prueba");						
+			out.println("<h4>" +lenguaje.getName()+" seteamos nuesta entidad </h4>");
 			em.refresh(lenguaje);
-			out.println("<h4>" +lenguaje.getName()+"</h4>");
+			out.println("<h4>" +lenguaje.getName()+" recuperamos el valor que puso el hilo con refresh (actual de BBDD) </h4>");
 			em.flush();
 			utx.commit();
 		} catch (Exception e) {
