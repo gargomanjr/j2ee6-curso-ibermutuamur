@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.ibermutuamur.curso.facades.CityFacade;
+import es.ibermutuamur.curso.facades.CityFacadeBeanLocal;
 import es.ibermutuamur.curso.modelo.City;
 
 /**
@@ -21,7 +21,7 @@ import es.ibermutuamur.curso.modelo.City;
 @WebServlet(name="/Fetching2", urlPatterns="/Fetching2")
 public class Ejemplo_Fetching_LazyEager2 extends HttpServlet {
 	
-	@EJB CityFacade facade; 
+	@EJB CityFacadeBeanLocal facade; 
        
     /**
      * @see HttpServlet#HttpServlet()
