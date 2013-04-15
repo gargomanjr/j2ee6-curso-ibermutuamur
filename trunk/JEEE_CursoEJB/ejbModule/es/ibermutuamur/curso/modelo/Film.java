@@ -6,8 +6,12 @@ import javax.persistence.*;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.FetchAttribute;
 import org.eclipse.persistence.annotations.FetchGroup;
+import org.eclipse.persistence.annotations.FetchGroups;
 import org.eclipse.persistence.annotations.ObjectTypeConverter;
 import org.eclipse.persistence.annotations.ConversionValue;
+import org.eclipse.persistence.queries.FetchGroupTracker;
+import org.eclipse.persistence.sessions.Session;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -18,12 +22,16 @@ import java.util.List;
  * 
  */
 @Entity
-/*@FetchGroup(name="names", attributes={
+@FetchGroups({
+@FetchGroup(name="names", attributes={
+		@FetchAttribute(name="filmId"),
         @FetchAttribute(name="title"),
         @FetchAttribute(name="description"), 
         @FetchAttribute(name="language1"), 
-        @FetchAttribute(name="releaseYear")})*/
-public class Film implements Serializable {
+        @FetchAttribute(name="releaseYear")
+		})
+})
+public class Film implements FetchGroupTracker ,Serializable  {
 	private static final long serialVersionUID = 1L;
 
 	@TableGenerator(name = "SEQ_FILM", table = "sequence", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", initialValue = 1001)
@@ -296,5 +304,56 @@ public class Film implements Serializable {
 		Commentaries,
 		Deleted,
 		Behind
-	} 
+	}
+
+
+	@Override
+	public org.eclipse.persistence.queries.FetchGroup _persistence_getFetchGroup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Session _persistence_getSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean _persistence_isAttributeFetched(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void _persistence_resetFetchGroup() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void _persistence_setFetchGroup(
+			org.eclipse.persistence.queries.FetchGroup arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void _persistence_setSession(Session arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void _persistence_setShouldRefreshFetchGroup(boolean arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean _persistence_shouldRefreshFetchGroup() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
