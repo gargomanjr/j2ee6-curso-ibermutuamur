@@ -12,8 +12,10 @@ import javax.persistence.Query;
 /**
  * @generated DT_ID=none
  */
-@Stateless(name = "CityFacade", mappedName = "JEEE_Curso-JEEE_CursoEJB-CityFacade")
-public class CityFacade{
+@Stateless(name = "CityFacadeBean", mappedName = "JEEE_Curso-JEEE_CursoEJB-CityFacadeBean")
+public class CityFacadeBean
+        implements CityFacadeBeanLocal, CityFacadeBeanRemote
+{
 
     /**
      * @generated DT_ID=none
@@ -24,7 +26,7 @@ public class CityFacade{
     /**
      * @generated DT_ID=none
      */
-    public CityFacade() {
+    public CityFacadeBean() {
     }
 
     /**
@@ -66,6 +68,7 @@ public class CityFacade{
         em.remove(city);
     }
 
+    
     @SuppressWarnings("unchecked")
 	public List<City> listaCiudades (){
     	Query q  = em.createQuery("select c from City c ");
@@ -81,5 +84,4 @@ public class CityFacade{
     	}
     	return cities;
     }
-    
 }
