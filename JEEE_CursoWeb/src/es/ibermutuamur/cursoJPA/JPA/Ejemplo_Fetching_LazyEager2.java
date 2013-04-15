@@ -52,24 +52,24 @@ public class Ejemplo_Fetching_LazyEager2 extends HttpServlet {
 	
 	private void fetching2(HttpServletRequest request, HttpServletResponse response,PrintWriter out){
         try {
-        	out.println("<h4> Sin Fech <h4>");
-        	List<City> ciudades1 = facade.listaCiudades();
-        	imprime_ciudades(ciudades1,out);
-        	out.println("<h4> Con Fech <h4>");
+        	out.println("<h2> Con Fech <h2>");
         	List<City> ciudades2 = facade.listaCiudadesFetch();
         	imprime_ciudades(ciudades2,out);
+        	out.println("<h2> Sin Fech <h2>");
+        	List<City> ciudades1 = facade.listaCiudades();
+        	imprime_ciudades(ciudades1,out);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	private void imprime_ciudades (List<City> ciudades,PrintWriter out){
-		for(int i=0;i<ciudades.size();i++){
+		for(int i=0;i<ciudades.size() && i<10;i++){
 			if(ciudades.get(i).getCountry()!=null){
-				out.println("Ciudad: "+ciudades.get(i).getCity() + " Pais: " +ciudades.get(i).getCountry().getCountry());
+				out.println("<h5>Ciudad: "+ciudades.get(i).getCity() + " Pais: " +ciudades.get(i).getCountry().getCountry()+"</h5>");
 			}
 			else{
-				out.println("Ciudad: "+ciudades.get(i).getCity() + "Sin Pais" );
+				out.println("<h5>Ciudad: "+ciudades.get(i).getCity() + "Sin Pais" +"</h5>");
 			}
 			
 		}
