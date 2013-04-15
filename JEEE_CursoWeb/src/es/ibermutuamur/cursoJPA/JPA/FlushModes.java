@@ -59,14 +59,14 @@ public class FlushModes extends HttpServlet {
 
 	
 	private void flushModes(PrintWriter out){
-        try {     
+            
         	
-			Query maxPais = em.createQuery("Select max(p.countryId) from Country p");
-			int maxIdpais= (Integer) maxPais.getSingleResult();
-			Country entityCountry =null;
-			City ciudad = null;
+		Query maxPais = em.createQuery("Select max(p.countryId) from Country p");
+		int maxIdpais= (Integer) maxPais.getSingleResult();
+		Country entityCountry =null;
+		City ciudad = null;
 			
-
+	   try { 
         	utx.begin();	
         	em.setFlushMode(FlushModeType.COMMIT);
         	out.println("<h3>Flush Mode "+em.getFlushMode().toString()+"</h3>");
@@ -80,8 +80,12 @@ public class FlushModes extends HttpServlet {
 	        utx.commit();
 	        entityCountry = em.find(Country.class, maxIdpais);
 	        imprimerCiudades(out, maxIdpais);
-	        
-	        
+	    
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	   
+	    try{   
         	utx.begin();	
         	em.setFlushMode(FlushModeType.COMMIT);
         	out.println("<h3>Flush Mode "+em.getFlushMode().toString()+"con flush antes del commit </h3>");
@@ -96,7 +100,12 @@ public class FlushModes extends HttpServlet {
 	        entityCountry = em.find(Country.class, maxIdpais);
 	        imprimerCiudades(out, maxIdpais);
 	        
-	        
+	   
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+        try{
 	        //Opción por defecto
         	utx.begin();	
         	em.setFlushMode(FlushModeType.AUTO);
