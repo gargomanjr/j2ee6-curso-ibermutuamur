@@ -18,11 +18,11 @@ import java.util.List;
  * 
  */
 @Entity
-@FetchGroup(name="names", attributes={
+/*@FetchGroup(name="names", attributes={
         @FetchAttribute(name="title"),
         @FetchAttribute(name="description"), 
         @FetchAttribute(name="language1"), 
-        @FetchAttribute(name="releaseYear")})
+        @FetchAttribute(name="releaseYear")})*/
 public class Film implements Serializable {
 	private static final long serialVersionUID = 1L;
 
