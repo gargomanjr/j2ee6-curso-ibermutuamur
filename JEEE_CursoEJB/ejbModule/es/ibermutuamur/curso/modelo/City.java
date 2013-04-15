@@ -6,7 +6,7 @@ import javax.persistence.*;
 import org.eclipse.persistence.annotations.Direction;
 import org.eclipse.persistence.annotations.NamedStoredProcedureQuery;
 import org.eclipse.persistence.annotations.StoredProcedureParameter;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,7 +34,8 @@ public class City implements Serializable {
 	private String city;
 
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	@Temporal(TemporalType.DATE)
+	private Date lastUpdate;
 
 	//bi-directional many-to-one association to Address
 	@OneToMany(mappedBy="city")
@@ -42,12 +43,12 @@ public class City implements Serializable {
 
 	//bi-directional many-to-one association to Country
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	@JoinColumn(name="country_id")
+	@PrimaryKeyJoinColumn(name="country_id",referencedColumnName="country_id")
 	private Country country;
 
 	public City() {
 	}
-
+	
 	public int getCityId() {
 		return this.cityId;
 	}
@@ -64,11 +65,11 @@ public class City implements Serializable {
 		this.city = city;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
