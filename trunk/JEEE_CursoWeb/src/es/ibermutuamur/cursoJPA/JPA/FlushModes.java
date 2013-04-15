@@ -18,6 +18,7 @@ import javax.transaction.UserTransaction;
 
 import es.ibermutuamur.curso.modelo.City;
 import es.ibermutuamur.curso.modelo.Country;
+import es.ibermutuamur.curso.modelo.Prueba;
 
 /**
  * Servlet implementation class InsertarEntity
@@ -110,6 +111,20 @@ public class FlushModes extends HttpServlet {
 	        entityCountry = em.find(Country.class, maxIdpais);
 	        imprimerCiudades(out, maxIdpais);
 	        
+	        
+	        //Opción por defecto
+        	/*utx.begin();	
+        	em.setFlushMode(FlushModeType.AUTO);
+        	Prueba prueba = new Prueba();
+			int numAleatorio = (int) (Math.random()*1000+1);
+        	prueba.setPrueba("Pru"+numAleatorio);
+        	em.persist(prueba);
+        	out.println("<h4>Prueba "+ prueba.getPrueba()+ " id: "+ prueba.getIdprueba() +"</h3>");
+	        em.flush();
+        	out.println("<h4>Prueba "+ prueba.getPrueba()+ " id: "+ prueba.getIdprueba() +"</h3>");
+	        utx.commit();
+        	out.println("<h4>Prueba "+ prueba.getPrueba()+ " id: "+ prueba.getIdprueba() +"</h3>");
+	        */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
