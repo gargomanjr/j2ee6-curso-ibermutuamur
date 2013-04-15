@@ -23,6 +23,7 @@
 		<class>es.ibermutuamur.curso.modelo.Staff</class>
 		<class>es.ibermutuamur.curso.modelo.Store</class>
 		<class>es.ibermutuamur.curso.modelo.FilmList</class>
+		<class>es.ibermutuamur.curso.modelo.Prueba</class>
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<validation-mode>AUTO</validation-mode>
 		<properties>
