@@ -45,7 +45,6 @@ public class Ejemplo_DinamicQueries extends HttpServlet {
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	private void dqueries(HttpServletRequest request, HttpServletResponse response){
         try {      	        	
             CriteriaBuilder qb = em.getCriteriaBuilder();
