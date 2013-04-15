@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.FetchAttribute;
+import org.eclipse.persistence.annotations.FetchGroup;
 import org.eclipse.persistence.annotations.ObjectTypeConverter;
 import org.eclipse.persistence.annotations.ConversionValue;
 import java.math.BigDecimal;
@@ -16,6 +18,11 @@ import java.util.List;
  * 
  */
 @Entity
+@FetchGroup(name="names", attributes={
+        @FetchAttribute(name="title"),
+        @FetchAttribute(name="description"), 
+        @FetchAttribute(name="language1"), 
+        @FetchAttribute(name="releaseYear")})
 public class Film implements Serializable {
 	private static final long serialVersionUID = 1L;
 
