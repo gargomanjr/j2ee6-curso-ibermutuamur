@@ -47,17 +47,10 @@ public class Ejemplo_Fetching_LazyEager extends HttpServlet {
         	int id = (Integer) queryMaxid.getSingleResult(); 
         	Query queryMinid = em.createQuery("select min(d.cityId) from City d");
         	int idmin = (Integer) queryMinid.getSingleResult(); 
+           	
+        	City ciudad1 = em.find(City.class, id);
         	
-        	
-        	Query query = em.createQuery("Select c from City c where c.cityId = :id");
-        	query.setParameter("id", id);
-        	
-        	City ciudad1 = (City) query.getSingleResult(); 
-        	
-        	Query query2 = em.createQuery("Select c from City c where c.cityId = :id");
-        	query2.setParameter("id", idmin);
-        	
-        	City ciudad2  = (City) query2.getSingleResult(); 
+        	City ciudad2  = em.find(City.class, idmin);
         	ciudad2.getCountry();
         	
         	request.setAttribute("ciudad1", ciudad1);

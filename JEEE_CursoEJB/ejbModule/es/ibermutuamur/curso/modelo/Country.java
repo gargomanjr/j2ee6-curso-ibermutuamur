@@ -3,7 +3,7 @@ package es.ibermutuamur.curso.modelo;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -28,7 +28,8 @@ public class Country implements Serializable {
 	private String country;
 
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	@Temporal(TemporalType.DATE)
+	private Date lastUpdate;
 
 	//bi-directional many-to-one association to City
 	@OneToMany(mappedBy="country")
@@ -53,11 +54,11 @@ public class Country implements Serializable {
 		this.country = country;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 

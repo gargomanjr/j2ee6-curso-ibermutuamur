@@ -47,8 +47,19 @@ public class City implements Serializable {
 	@JoinColumn(name="country_id")
 	private Country country;
 
+	public City(int cityId,String city,Date lastUpdate,List<Address> addresses,Country country) {
+		this.cityId =cityId;
+		this.city   =city;
+		this.lastUpdate =lastUpdate;
+		this.addresses =addresses;
+		this.country =country;
+		System.out.println(city);
+	}
+	
 	public City() {
 	}
+	
+	
 	
 	public int getCityId() {
 		return this.cityId;
