@@ -7,10 +7,7 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.facades.CalculadoraFacade;
-import es.ibermutuamur.curso.facades.CalculadoraFacade2;
+import es.ibermutuamur.curso.facades.ExcepcionRBFalse;
+import es.ibermutuamur.curso.facades.ExcepcionRBTrue;
 import es.ibermutuamur.curso.modelo.Country;
 
 /**
@@ -33,8 +30,8 @@ public class Ejemplo_AppException extends HttpServlet {
     EntityManager em;
     @Resource
     UserTransaction utx; 
-    @EJB CalculadoraFacade facade;
-    @EJB CalculadoraFacade2 facade2;
+    @EJB ExcepcionRBTrue facade;
+    @EJB ExcepcionRBFalse facade2;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -69,15 +66,46 @@ public class Ejemplo_AppException extends HttpServlet {
 	private void exception(PrintWriter out){
         try {
         	
+        	
+        	try{
+        		facade.saltaError();
+    		} catch (Exception e1) {
+    			e1.printStackTrace();
+    			out.println("<h4>Error al insertar otra entidad de pais sin transacción "+e1.getMessage()+" <h4>");
+    		}
+        	
+        	
+        	try{
+        		facade2.saltaError();
+    		} catch (Exception e1) {
+    			e1.printStackTrace();
+    			out.println("<h4>Error al insertar otra entidad de pais sin transacción "+e1.getMessage()+" <h4>");
+    		}
+        	
+        	
+
         	if(utx == null){
         		utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         	}
         	
         	utx.begin();
 
-        	facade.saltaError();
-        	       	
-        	facade2.saltaError();
+        	
+        	try{
+        		facade2.saltaError();
+    		} catch (Exception e1) {
+    			e1.printStackTrace();
+    			out.println("<h4>Error al insertar otra entidad de pais sin transacción "+e1.getMessage()+" <h4>");
+    		}
+        	
+        	
+        	try{
+        		facade.saltaError();
+    		} catch (Exception e1) {
+    			e1.printStackTrace();
+    			out.println("<h4>Error al insertar otra entidad de pais sin transacción "+e1.getMessage()+" <h4>");
+    		}
+
         	
 	        Country pais = new Country();
 	        pais.setCountry("Japón");
