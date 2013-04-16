@@ -72,12 +72,14 @@ public class CityFacadeBean
     @SuppressWarnings("unchecked")
 	public List<City> listaCiudades (){
     	Query q  = em.createQuery("select c from City c ");
+    	q.setMaxResults(5);
     	return q.getResultList();
     }
     
     @SuppressWarnings("unchecked")
 	public List<City> listaCiudadesFetch (){
     	Query q  = em.createQuery("select c from City c");
+    	q.setMaxResults(5);
     	List<City> cities =  q.getResultList();
     	for(int i =0; i<cities.size();i++){
     		cities.get(i).getCountry();

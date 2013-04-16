@@ -27,9 +27,10 @@
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<validation-mode>AUTO</validation-mode>
 		<properties>
-			<property name="eclipselink.target-server" value="WebLogic"/>
-		<!-- 	<property name="eclipselink.ddl-generation" value="create-tables" /> -->
-			<property name="eclipselink.logging.level" value="FINEST"/>
+		<property name="eclipselink.target-server" value="WebLogic"/>
+		<property name="eclipselink.logging.level" value="FINEST"/>
+		<property name="javax.persistence.lock.timeout" value="3000"/>
+		<!--<property name="eclipselink.ddl-generation" value="create-tables" />-->	
 		</properties>
 		
 	</persistence-unit>

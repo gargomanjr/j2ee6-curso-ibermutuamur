@@ -65,8 +65,10 @@ public class Ejemplo_Fetching_LazyEager2 extends HttpServlet {
 	
 	private void imprime_ciudades (List<City> ciudades,PrintWriter out){
 		try{
+			City ciudad = new City();
 			for(int i=0;i<ciudades.size() && i<10;i++){
-				if(ciudades.get(i).getCountry()!=null){
+				ciudad = ciudades.get(i);
+				if(ciudad.getCountry()!=null){
 					out.println("<h5>Ciudad: "+ciudades.get(i).getCity() + " Pais: " +ciudades.get(i).getCountry().getCountry()+"</h5>");
 				}
 				else{
@@ -76,7 +78,7 @@ public class Ejemplo_Fetching_LazyEager2 extends HttpServlet {
 			}
 		}
 		catch(Exception e){
-			out.println("<h5> Error al imprimir </h5>");
+			out.println("<h5> Error al imprimir " + e.getMessage()+" </h5>");
 		}
 	}
 	/**
