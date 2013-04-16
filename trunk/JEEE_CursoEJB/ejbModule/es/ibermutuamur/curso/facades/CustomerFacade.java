@@ -85,6 +85,8 @@ public class CustomerFacade
 
     @Schedule( minute="*/20",hour="*")
     public void insertarPais(){
+    	Date d = new Date();
+    	System.out.println("Hola desde el Bean Customer Facade Insertamos un Pais :) :) son las  " +d.toString());
         Country c = new Country();
         c.setCountry("Pais Timer");
         em.persist(c);
