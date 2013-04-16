@@ -14,6 +14,7 @@ import java.util.List;
  * The persistent class for the city database table.
  * 
  */
+@Cacheable(false)
 @NamedStoredProcedureQuery(name="descripcionCiudad2", procedureName="descripcionCiudad",multipleResultSets=false, resultClass=DescripcionCiudad.class, 
 parameters={
 	      @StoredProcedureParameter(direction=Direction.IN,  name="idCiudad", queryParameter="idCiudad", type=Integer.class),
@@ -43,7 +44,7 @@ public class City implements Serializable {
 
 	//bi-directional many-to-one association to Country
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	@PrimaryKeyJoinColumn(name="country_id",referencedColumnName="country_id")
+	@JoinColumn(name="country_id")
 	private Country country;
 
 	public City() {
