@@ -15,26 +15,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.facades.ExcepcionRBFalse;
+import es.ibermutuamur.curso.facades.ExcepcionRBTrue;
 import es.ibermutuamur.curso.modelo.Country;
 
 /**
  * Servlet implementation class InsertarEntity
  */
 @SuppressWarnings("serial")
-@WebServlet(name="/AppException", urlPatterns="/AppException")
-public class Ejemplo_AppException extends HttpServlet {
+@WebServlet(name="/AppException2", urlPatterns="/AppException2")
+public class Ejemplo_AppException2 extends HttpServlet {
 	
     @PersistenceContext(unitName="JEEE_CursoWeb")
     EntityManager em;
     @Resource
     UserTransaction utx; 
-    @EJB ExcepcionRBFalse facade2;
+    @EJB ExcepcionRBTrue facade;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Ejemplo_AppException() {
+    public Ejemplo_AppException2() {
         super();
         //insertarPais();
         
@@ -62,37 +62,13 @@ public class Ejemplo_AppException extends HttpServlet {
 
 	
 	private void exception(PrintWriter out){
-        try {
 
-
-        	if(utx == null){
-        		utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
-        	}
-        	
-        	utx.begin();
-
-        	
         	try{
-        		facade2.saltaError();
+        		facade.saltaError();
     		} catch (Exception e1) {
     			e1.printStackTrace();
-    			out.println("<h4>Error en el método  "+e1.getMessage()+" <h4>");
+    			out.println("<h4>Error en el metodo "+e1.getMessage()+" <h4>");
     		}
-        	
-        	
-	        Country pais = new Country();
-	        pais.setCountry("Japón");
-	        em.flush();
-	        em.persist(pais);
-
-	        utx.commit();
-	        out.println("<h4>Insertada entidad de pais id "+pais.getCountryId()+" <h4>");
-	        
-	        
-		} catch (Exception e) {
-			e.printStackTrace();
-			out.println("<h4>Error al insertar otra entidad de pais sin transacción "+e.getMessage()+" <h4>");
-		}
 
 	}
 	/**
