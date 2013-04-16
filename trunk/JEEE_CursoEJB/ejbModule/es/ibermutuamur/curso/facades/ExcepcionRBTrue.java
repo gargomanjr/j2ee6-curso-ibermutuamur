@@ -12,25 +12,20 @@ import es.ibermutuamur.curso.modelo.Country;
 
 
 
-@Stateless(name="CalculadoraFacade2")
-@ApplicationException(rollback=false)
-public class CalculadoraFacade2{
+@Stateless(name="ExcepcionRBTrue")
+@ApplicationException(rollback=true)
+public class ExcepcionRBTrue {
  
     @PersistenceContext(unitName="JEEE_CursoEJB")
     private EntityManager em;
  
  
  @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
- public void saltaError(){
-     try {
+ public void saltaError() throws FinderException{
 	 Country pais = new Country();
-     pais.setCountry("RBFalse");
+     pais.setCountry("RBTrue");
      em.persist(pais);  
-	 throw new FinderException("lanzada excecion desde FacadeBean 2");
-	} catch (FinderException e) {
-
-		e.printStackTrace();
-	}
+	 throw new FinderException("lanzada excecion desde ExcepcionRBTrue");
  }
  
 }
