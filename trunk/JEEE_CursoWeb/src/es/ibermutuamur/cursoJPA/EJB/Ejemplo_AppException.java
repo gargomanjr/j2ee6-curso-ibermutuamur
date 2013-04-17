@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.facades.ExcepcionRBFalse;
-import es.ibermutuamur.curso.modelo.Country;
+import es.ibermutuamur.curso.facades.FacadeRBFalse;
 
 /**
  * Servlet implementation class InsertarEntity
@@ -29,7 +28,7 @@ public class Ejemplo_AppException extends HttpServlet {
     EntityManager em;
     @Resource
     UserTransaction utx; 
-    @EJB ExcepcionRBFalse facade2;
+    @EJB FacadeRBFalse facade2;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -80,13 +79,7 @@ public class Ejemplo_AppException extends HttpServlet {
     		}
         	
         	
-	        Country pais = new Country();
-	        pais.setCountry("Japón");
-	        em.flush();
-	        em.persist(pais);
-
 	        utx.commit();
-	        out.println("<h4>Insertada entidad de pais id "+pais.getCountryId()+" <h4>");
 	        
 	        
 		} catch (Exception e) {
