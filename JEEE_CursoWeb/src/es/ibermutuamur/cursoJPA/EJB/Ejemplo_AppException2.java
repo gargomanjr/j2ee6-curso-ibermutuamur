@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
@@ -15,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import es.ibermutuamur.curso.facades.ExcepcionRBTrue;
-import es.ibermutuamur.curso.modelo.Country;
+import es.ibermutuamur.curso.facades.FacadeRBTrue;
 
 /**
  * Servlet implementation class InsertarEntity
@@ -29,7 +27,7 @@ public class Ejemplo_AppException2 extends HttpServlet {
     EntityManager em;
     @Resource
     UserTransaction utx; 
-    @EJB ExcepcionRBTrue facade;
+    @EJB FacadeRBTrue facade;
        
     /**
      * @see HttpServlet#HttpServlet()
