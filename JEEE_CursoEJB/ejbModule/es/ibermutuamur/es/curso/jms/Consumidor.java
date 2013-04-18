@@ -31,7 +31,6 @@ public class Consumidor implements MessageListener  {
 		String descripcion = (String) msgMap.getObjectProperty("descripcion");
 		
 		Country paisnuevo = new Country();
-		paisnuevo.setCountryId(id);
 		paisnuevo.setCountry(descripcion);
 		
 		utx.begin();
