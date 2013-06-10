@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<!--
+	    <meta http-equiv="Refresh" content="5"/>-->
+		<link REL="SHORTCUT ICON" HREF="images/ccup.jpg">
+		<meta http-equiv="viewport" content="width=device-width,user-scalable=no"/>
+		
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.mobile.js"></script>
+
+		<title>Copa Confederaciones</title>
+		
+		<script>
+		
+			$(document).ready(function() {
+			  alert("Ready");
+			});
+			//http://tony1:7001/WebServicePrueba/PruebaWSService?WSDL
+			$(function() {
+				$( "#refTabla" )
+				  .button()
+				  .click(function( event ) {
+						alert('ddd');
+						soap();
+					var llamada = '<?xml version="1.0" encoding="utf-8"?>'+
+							  '<soapenv:Envelope '+
+							  		'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+									'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+									'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" '+
+									'xmlns:wsc="http://wscccup.ajgarciam.es/">'+
+								  '<soapenv:Header/>'+
+								  '<soapenv:Body>'+
+									'<wsc:enviarResultados>'+
+										'<grupo>1</grupo>'+
+									'</wsc:enviarResultados>'+
+								  '</soapenv:Body>'+
+							  '</soapenv:Envelope>';
+							  
+						$.ajax( {
+							url:"http://localhost:7001/WebServicePrueba/PruebaWSService?WSDL",					
+							type: "POST",
+							dataType: "xml",
+							xmlData: llamada,
+							//useDefaultXhrHeader: false,
+							headers: {
+								"Content-Type": "text/xml"
+							},
+							contentType:"text/xml",
+							error: function(jqXHR, textStatus, errorThrown) {
+							    if (jqXHR.status === 0) {
+									alert('Not connect.\n Verify Network.');
+								} else if (jqXHR.status == 404) {
+									alert('Requested page not found. [404]');
+								} else if (jqXHR.status == 500) {
+									alert('Internal Server Error [500].');
+								} else if (exception === 'parsererror') {
+									alert('Requested JSON parse failed.');
+								} else if (exception === 'timeout') {
+									alert('Time out error.');
+								} else if (exception === 'abort') {
+									alert('Ajax request aborted.');
+								} else {
+									alert('Uncaught Error.\n' + jqXHR.responseText);
+								}
+							  alert("Status: " + textStatus); alert("Error: " + errorThrown);
+							}
+						/*success:function(data) {
+						 alert(data);
+						}*/
+						})
+				  });
+			});
+			
+			
+			function soap() {
+				var xmlhttp = new XMLHttpRequest();
+				var url = "http://localhost:7001/WebServicePrueba/PruebaWSService?WSDL";
+				//xmlhttp.open('POST', 'https://somesoapurl.com/', true);
+				xmlhttp.open('POST', url, false);
+				// build SOAP request
+				var sr =
+					'<?xml version="1.0" encoding="utf-8"?>' +
+					'<soapenv:Envelope ' + 
+						'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+						'xmlns:api="http://127.0.0.1/Integrics/Enswitch/API" ' +
+						'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+						'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">' +
+						'<soapenv:Body>' +
+							'<api:some_api_call soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">' +
+								'<username xsi:type="xsd:string">login_username</username>' +
+								'<password xsi:type="xsd:string">password</password>' +
+							'</api:some_api_call>' +
+						'</soapenv:Body>' +
+					'</soapenv:Envelope>';
+
+				var llamada = '<?xml version="1.0" encoding="utf-8"?>'+
+							  '<soapenv:Envelope '+
+							  		'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+									'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+									'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" '+
+									'xmlns:wsc="http://wscccup.ajgarciam.es/">'+
+								  '<soapenv:Header/>'+
+								  '<soapenv:Body>'+
+									'<wsc:enviarResultados>'+
+										'<grupo>1</grupo>'+
+									'</wsc:enviarResultados>'+
+								  '</soapenv:Body>'+
+							  '</soapenv:Envelope>';
+							
+				
+				xmlhttp.onreadystatechange = function () {
+					if (xmlhttp.readyState == 4) {
+						if (xmlhttp.status == 200) {
+							alert('done use firebug to see response');
+						}
+					}
+				}
+				// Send the POST request
+				xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+				alert('antes del send');
+				xmlhttp.send(llamada);
+				xmlDoc=xmlhttp.responseXML;
+				alert(xmlDoc.length);
+				// send request
+				// ...
+			}
+		</script>
+		<style>
+			table {
+				color: black;
+				background: #fff;
+				border: 1px solid #b4b4b4;
+				font: bold 17px helvetica;
+				padding: 0;
+				margin-top:10px;
+				width: 100%;
+				-webkit-border-radius: 8px;
+			}
+				 
+			table tr td {
+				color: #666;
+				border-bottom: 1px solid #b4b4b4;
+				border-right: 1px solid #b4b4b4;
+				padding: 10px 10px 10px 10px;
+			}
+			
+			table tr.celdaClasificados{
+				color: #666;
+				border-bottom: 1px solid #b4b4b4;
+				border-right: 1px solid #b4b4b4;
+				padding: 10px 10px 10px 10px;
+				background-image: -webkit-linear-gradient(top, #A901DB, #eee);
+				background-color:#81F781;
+			}
+			
+			table tr td:last-child {
+			    border-right: none;
+			}
+			
+			table tr:last-child td {
+			    border-bottom: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div data-role="page" id="pagina1">
+			<div data-role="header" data-position="fixed">
+				<h1>Copa Confederaciones</h1>
+				<a href="#" data-icon="refresh" id="refTabla" class="ui-btn-right" data-iconpos="notext" data-transition="slidedown">Search</a><!-- data-rel="dialog" paradialogos -->
+			</div>
+			<div data-role="content">
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed="false">
+						<h3>
+						    Grupo A
+						</h3>
+						<table data-role="table" id="grupoA" data-mode="reflow" class="ui-responsive table-stroke">
+							<thead>
+							  <tr>
+							    <th>Pais</th>
+							    <th>J</th>
+							    <th>G</th>
+							    <th>E</th>
+							    <th>P</th>
+							    <th>GF</th>
+							    <th>GC</th>
+							    <th>Pt</th>
+							  </tr>
+							</thead>
+							<tbody>
+								<tr class="celdaClasificados">
+									<th><img src="images/Brazil.png" title="Brasil" alt="Brasil" id="brasil"/>Brasil</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>									
+								</tr>
+								<tr class="celdaClasificados">
+									<th><img src="images/Italy.png"  title="Italia" alt="Italia" id="Italia"/>Italia</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>	    
+								</tr>
+								<tr>
+									<th><img src="images/Japan.png"  title="japan" alt="Japón" id="japan"/>Japón</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>	    
+								</tr>
+								<tr>
+									<th><img src="images/Mexico.png"  title="Brasil" alt="Brasil" id="mexico"/>Mexico</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>	    
+								</tr>
+							  </tbody>
+						</table>
+					</div>
+					<div data-role="collapsible" data-collapsed="false">
+						<h3>
+						    Grupo B
+						</h3>
+						<table data-role="table" id="grupoB" data-mode="reflow" class="ui-responsive table-stroke">
+							<thead>
+							  <tr>
+							    <th>Pais</th>
+							    <th>J</th>
+							    <th>G</th>
+							    <th>E</th>
+							    <th>P</th>
+							    <th>GF</th>
+							    <th>GC</th>
+							    <th>Pt</th>
+							  </tr>
+							</thead>
+							<tbody>
+								<tr class="celdaClasificados">
+									<th><img src="images/Spain.png"  title="Spain" alt="España" id="Spain"/>España</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>	    
+								</tr>
+								<tr class="celdaClasificados">
+									<th><img src="images/Nigeria.png"  title="nigeria" alt="Nigeria" id="nigeria"/>Nigeria</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>	    
+								</tr>
+								<tr>
+									<th><img src="images/tahiti.png"  title="tahiti" alt="tahiti" id="tahiti"/>Tahití</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>	    
+								</tr>
+								<tr>
+									<th><img src="images/Uruguay.png"  title="Uruguay" alt="Uruguay" id="Uruguay"/>Uruguay</th>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>	    
+								</tr>
+							  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar" data-iconpos="top">
+					<ul>
+						<li><a href="#pagina1" data-transition="slide" data-icon="grid" class="ui-btn-active">Grupos</a></li>
+						<li><a href="#pagina2" data-transition="slide" data-icon="plus">Fase Final</a></li>
+						<li><a href="#pagina3" data-icon="star">Palmarés</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!--  Pagina 2 interna -->
+		
+		<div data-role="page" id="pagina2">
+			<div data-role="header">
+				<h1>Copa Confederaciones</h1>
+				<a href="#pagina2" data-icon="refresh" class="ui-btn-right" data-iconpos="notext" data-transition="slidedown">Search</a>
+			</div>
+			<div data-role="content">
+				<p>
+					Probando...[Tutorial][Parte 4] Webapps con Jquery Mobile </br>
+					<a href="#page1" data-role="button" data-rel="back" data-theme="a">Volver a la Pagina 1</a>
+					<a href="#" data-role="button" data-theme="b">Mi programa</a>
+					<a href="#" data-role="button">Enlace externo</a>
+				<p/>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar" data-iconpos="top">
+					<ul>
+						<li><a href="#pagina1" data-transition="slide" data-icon="grid" >Grupos</a></li>
+						<li><a href="#pagina2" data-transition="slide" data-icon="plus" class="ui-btn-active">Fase Final</a></li>
+						<li><a href="#pagina3" data-transition="slide" data-icon="star">Palmarés</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div data-role="page" id="pagina3" data-add-back-btn="true">
+			<div data-role="header">
+				<h1>Copa Confederaciones</h1>
+			</div>
+			<div data-role="content">
+				<h1>Palmarés</h1>
+				<table data-role="table" id="grupoB" data-mode="reflow" class="ui-responsive table-stroke">
+					<thead>
+					  <tr>
+					    <th>Año</th>
+					    <th>Sede</th>
+					    <th>Campeón</th>
+					    <th>Subcampeon</th>
+					  </tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>2009</td>
+							<td>Sudáfrica</td>
+							<th>Brasil</th>
+							<td>EE.UU.</td>	
+						</tr>
+						<tr>
+							<td>2005</td>
+							<td>Alemania</td>
+							<th>Brasil</th>
+							<td>Argentina</td>	
+						</tr>
+						<tr>
+							<td>2003</td>
+							<td>Francia</td>
+							<th>Francia</th>
+							<td>Camerún</td>	
+						</tr>
+						<tr>																							
+							<td>2001</td>
+							<td>Corea/Japón</td>
+							<th>Francia</th>
+							<td>Japón</td>	
+						</tr>
+						<tr>																																
+							<td>1999</td>
+							<td>México</td>
+							<th>México</th>
+							<td>Brasil</td>	
+						</tr>
+						<tr>																																
+							<td>1997</td>
+							<td>Arabia Saudí</td>
+							<th>Brasil</th>
+							<td>Australia</td>	
+						</tr>						
+						<tr>																																
+							<td>1995</td>
+							<td>Arabia Saudí</td>
+							<th>Dinamarca</th>
+							<td>Argentina</td>	
+						</tr>
+						<tr>																																
+							<td>1992</td>
+							<td>Arabia Saudí</td>
+							<th>Argentina</th>
+							<td>Arabia Saudí</td>	
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar" data-iconpos="top">
+					<ul>
+						<li><a href="#pagina1" data-transition="slide" data-icon="grid" >Grupos</a></li>
+						<li><a href="#pagina2" data-transition="slide" data-icon="plus" >Fase Final</a></li>
+						<li><a href="#pagina3" data-transition="slide" data-icon="star" class="ui-btn-active">Palmarés</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
